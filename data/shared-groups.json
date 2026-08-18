@@ -1,0 +1,304 @@
+{
+ "SIDE": {
+  "name": "Side Choice",
+  "required": true,
+  "multi": false,
+  "choices": [
+   {
+    "name": "Fries",
+    "priceCents": 0
+   },
+   {
+    "name": "Coleslaw",
+    "priceCents": 0
+   },
+   {
+    "name": "Side Caesar Salad",
+    "priceCents": 200
+   },
+   {
+    "name": "Side House Salad",
+    "priceCents": 200
+   },
+   {
+    "name": "Sweet Potato Fries",
+    "priceCents": 200
+   },
+   {
+    "name": "Brussel Sprouts",
+    "priceCents": 300
+   },
+   {
+    "name": "Soup: Carrot Ginger V/GF",
+    "priceCents": 300
+   },
+   {
+    "name": "Truffle Fries",
+    "priceCents": 300
+   },
+   {
+    "name": "No Side",
+    "priceCents": 0
+   }
+  ]
+ },
+ "SECOND_SIDE": {
+  "name": "Discounted 2nd Side Choice",
+  "required": false,
+  "multi": false,
+  "choices": [
+   {
+    "name": "Second Side Fries",
+    "priceCents": 200
+   },
+   {
+    "name": "Second Side Coleslaw",
+    "priceCents": 200
+   },
+   {
+    "name": "Second Side Caesar Salad",
+    "priceCents": 200
+   },
+   {
+    "name": "Second Side House Salad",
+    "priceCents": 200
+   },
+   {
+    "name": "Second Side Sweet Fries",
+    "priceCents": 200
+   },
+   {
+    "name": "Second Side Brussel Sprouts",
+    "priceCents": 300
+   },
+   {
+    "name": "Second Side Soup",
+    "priceCents": 300
+   },
+   {
+    "name": "Second Side Truffle Fries",
+    "priceCents": 300
+   }
+  ]
+ },
+ "SAUCES": {
+  "name": "Extra Sauce Choice",
+  "required": false,
+  "multi": true,
+  "choices": [
+   {
+    "name": "Extra Ranch Side",
+    "priceCents": 75
+   },
+   {
+    "name": "Extra Gouda Cheese Dip 2oz",
+    "priceCents": 150
+   },
+   {
+    "name": "Extra Au Jus Side",
+    "priceCents": 100
+   },
+   {
+    "name": "Extra A1",
+    "priceCents": 75
+   },
+   {
+    "name": "Extra Balsamic Side",
+    "priceCents": 50
+   },
+   {
+    "name": "Extra BBQ Side",
+    "priceCents": 50
+   },
+   {
+    "name": "Extra Bleu Cheese Side",
+    "priceCents": 50
+   },
+   {
+    "name": "Extra Buffalo Side",
+    "priceCents": 50
+   },
+   {
+    "name": "Extra Caesar Dressing Side",
+    "priceCents": 50
+   },
+   {
+    "name": "Extra Cajun Remoulade Side",
+    "priceCents": 75
+   },
+   {
+    "name": "Extra Carolina BBQ Side",
+    "priceCents": 50
+   },
+   {
+    "name": "Extra Coach Sauce Side",
+    "priceCents": 75
+   },
+   {
+    "name": "Extra Gouda Cheese Dip 4oz",
+    "priceCents": 300
+   },
+   {
+    "name": "Extra Honey Side",
+    "priceCents": 75
+   },
+   {
+    "name": "Extra Honey Mustard Side",
+    "priceCents": 75
+   },
+   {
+    "name": "Extra Italian Side",
+    "priceCents": 50
+   },
+   {
+    "name": "Extra Ketchup Side",
+    "priceCents": 0
+   },
+   {
+    "name": "Extra Kung Pao Sauce Side",
+    "priceCents": 75
+   },
+   {
+    "name": "Extra Marinara Side",
+    "priceCents": 50
+   },
+   {
+    "name": "Extra Mayo Side",
+    "priceCents": 25
+   },
+   {
+    "name": "Extra Mustard Side",
+    "priceCents": 0
+   },
+   {
+    "name": "Extra Olive Brine Aioli Side",
+    "priceCents": 75
+   },
+   {
+    "name": "Extra Pimento Cheese 2oz",
+    "priceCents": 250
+   },
+   {
+    "name": "Extra Tartar",
+    "priceCents": 75
+   },
+   {
+    "name": "Extra Thousand Island Side",
+    "priceCents": 50
+   },
+   {
+    "name": "Extra Truffle Aioli Side",
+    "priceCents": 75
+   }
+  ]
+ },
+ "DRESSING": {
+  "name": "Salad Dressing Choice",
+  "required": true,
+  "multi": false,
+  "choices": [
+   {
+    "name": "Balsamic",
+    "priceCents": 0
+   },
+   {
+    "name": "Bleu Cheese",
+    "priceCents": 0
+   },
+   {
+    "name": "Caesar Dressing",
+    "priceCents": 0
+   },
+   {
+    "name": "Honey Mustard",
+    "priceCents": 0
+   },
+   {
+    "name": "Italian",
+    "priceCents": 0
+   },
+   {
+    "name": "Ranch",
+    "priceCents": 0
+   },
+   {
+    "name": "Thousand Island",
+    "priceCents": 0
+   },
+   {
+    "name": "No Dressing",
+    "priceCents": 0
+   }
+  ]
+ },
+ "PROTEIN": {
+  "name": "Add Salad Protein",
+  "required": false,
+  "multi": false,
+  "choices": [
+   {
+    "name": "Add Fried Chicken",
+    "priceCents": 500
+   },
+   {
+    "name": "Add Grilled Chicken",
+    "priceCents": 500
+   },
+   {
+    "name": "Add Fried Shrimp",
+    "priceCents": 800
+   },
+   {
+    "name": "Add Grilled Shrimp",
+    "priceCents": 800
+   },
+   {
+    "name": "Add Salmon",
+    "priceCents": 900
+   }
+  ]
+ },
+ "INCLUDED_SAUCE": {
+  "name": "Included Sauce",
+  "required": true,
+  "multi": false,
+  "choices": [
+   {
+    "name": "Ranch",
+    "priceCents": 0
+   },
+   {
+    "name": "Coach Sauce",
+    "priceCents": 0
+   },
+   {
+    "name": "BBQ",
+    "priceCents": 0
+   },
+   {
+    "name": "Buffalo",
+    "priceCents": 0
+   },
+   {
+    "name": "Honey Mustard",
+    "priceCents": 0
+   },
+   {
+    "name": "No Sauce",
+    "priceCents": 0
+   },
+   {
+    "name": "Small Hummus",
+    "priceCents": 100
+   },
+   {
+    "name": "Kung Pao",
+    "priceCents": 0
+   },
+   {
+    "name": "Bleu Cheese",
+    "priceCents": 0
+   }
+  ]
+ }
+}

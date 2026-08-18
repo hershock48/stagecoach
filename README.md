@@ -1,36 +1,178 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# The Stagecoach Inn
 
-## Getting Started
+A concept rebuild of [stagecoach1838.com](https://stagecoach1838.com) for
+**The Stagecoach Inn**, 201 W Michigan Ave, Marshall, Michigan. Built by
+[Glazed Web](https://glazedweb.com) as a spec build behind a proposal. Not
+commissioned, not live on their domain, built from their own public material.
 
-First, run the development server:
+Next.js 16 App Router, Tailwind 4 (CSS-first `@theme`), TypeScript, deployed on
+Vercel.
+
+---
+
+## The one-paragraph version
+
+Their current site is WordPress on Flywheel with Elementor. It has three pages
+in its sitemap, no menu (every Menu link goes to Toast, and `/menu/` 404s), an
+events page that reads "There are no upcoming events" while the homepage
+advertises three weekly events, no phone number on the homepage, and no
+structured data at all. Toast separately publishes a second website about them
+at `thecoach.toast.site`. This build answers all of that and adds ordering that
+runs on their own domain.
+
+---
+
+## Run it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run build && npm start        # audit the PRODUCTION build, never dev
+ORDERING_DEMO_ALWAYS_OPEN=1 npm start   # for demos outside kitchen hours
+node audit.mjs --base http://127.0.0.1:3000 --routes /,/menu,/events,/story,/visit,/order,/kitchen
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Audit the production build, never the dev server.** Dev serves different CSS
+and hides build-time failures.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Current audit state: **0 axe violations** across all 7 routes at 390px and
+1440px, no horizontal overflow at 320/390/768/1440, no console errors.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+> The auditor reports a 401 on `/kitchen` for `/api/kitchen/state`. That is
+> correct behavior, not a fault: the board asks the server for state before the
+> PIN cookie exists, gets refused, and shows the PIN gate. Do not "fix" it.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Where things live
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Path | What it is |
+|---|---|
+| `lib/site.ts` | **Every business fact.** Address, phone, hours, chef, events, Toast URLs. A correction is one edit here. |
+| `lib/ordering/` | The Jelly ordering engine, ported from the Copper build. Menu, store, printing, email, auth, time. |
+| `lib/ordering/toast-menu.json` | The seed menu: 61 items harvested from their live Toast pages, with real photos and real modifier groups. |
+| `components/ordering/` | Guest order page, kitchen board, menu editor. |
+| `public/brand/` | Their logo and photography, lifted from their own site and Toast pages. |
+| `public/pitch/` | The proposal page and its share card. **Delete both, and the rewrites in `next.config.ts`, once they sign or pass.** |
+| `audit.mjs` | The standing Glazed Web auditor. Run it rather than writing a fresh one. |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Surfaces that cannot read from `lib/site.ts`
 
-## Deploy on Vercel
+Named here because they will go stale silently otherwise:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `public/pitch/og.jpg` and `public/pitch/stagecoach.html` — the proposal's own
+  copy and share card, hand-written.
+- `public/brand/logo.png` — artwork, not type.
+- The `openingHoursSpecification` in `app/layout.tsx` is machine-readable and
+  derived by hand from `SITE.hours`; if the hours change, change both. They are
+  adjacent in the file for exactly this reason.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Before this goes live
+
+Everything unchecked is a real gap, not a nicety.
+
+**Facts only the owner has**
+
+- [ ] **Which inbox does a real person read?** `SITE.email` is a PLACEHOLDER
+      (`hello@stagecoach1838.com`). Their current site publishes no email
+      anywhere, only a form. Set this and `INQUIRY_TO`.
+- [ ] **Does Saturday live music have a start time?** Their Toast page
+      advertises it with no time; the WordPress site does not mention it at
+      all. `WEEKLY_EVENTS` carries the gap honestly rather than inventing one.
+- [ ] **Who owns the domain, and where is the DNS?** Login, not just the name.
+- [ ] **Is there email on `stagecoach1838.com` today?** Moving a domain with
+      live MX records is how a business loses its email. Ask before pointing.
+- [ ] **Anything on the current site that is already wrong?** Owners know and
+      rarely volunteer it. Start with the homepage featuring Ahi Tuna, which is
+      not on the ordering menu.
+
+**Configuration**
+
+- [ ] `RESEND_API_KEY`, `INQUIRY_FROM`, `INQUIRY_TO` in Vercel. Until these are
+      set, the contact form falls back to a prefilled `mailto:` and says so. It
+      never claims to have sent something it did not send.
+- [ ] `DATABASE_URL` (Neon). **Required for ordering**, not optional: without
+      it, orders and menu edits live in a single lambda's memory and vanish.
+- [ ] `KITCHEN_PIN`. The fallback `0201` is the street number and is a
+      PLACEHOLDER.
+- [ ] Remove `ORDERING_DEMO_ALWAYS_OPEN` at go-live, or the kitchen takes
+      orders at 3am.
+- [ ] `STRIPE_SECRET_KEY` and the connected account, at the PAYMENT SEAM in
+      `app/api/ordering/order/route.ts`. Until then checkout is demo mode and
+      says so on screen.
+
+**Content and assets**
+
+- [ ] **Mirror the menu photos.** Forty of the 61 items use photos still served
+      from Toast's CDN, because that is where they live today. If the Toast
+      account is switched off before these are copied into `public/`, the menu
+      loses its pictures.
+- [ ] Replace `/og.jpg` (site share card) — currently missing, so social
+      previews fall back to no image.
+- [ ] Confirm the menu against the kitchen. It was harvested on 2026-08-18 and
+      restaurants change prices.
+- [ ] Michigan tax question for the ordering piece: marketplace-facilitator
+      status and whether the 99¢ fee is taxable. Unresolved, and it is the one
+      real blocker on the ordering side.
+
+---
+
+## Decisions, and what was rejected
+
+**The menu is a database document, not a file.** `toast-menu.json` is only the
+seed. First read on an empty database loads it; every edit after that belongs to
+the restaurant, made on `/kitchen` in an editor that works like Toast's back
+office. Rejected: syncing from Toast on a timer. That keeps them tethered to the
+thing we are replacing, and a scraper against a competitor's checkout breaks
+silently every time they touch their markup.
+
+**Three duplicate option names were resolved in the seed, on purpose.** The
+harvest found the same choice name in two groups on three items, which our
+engine cannot disambiguate because it identifies options by name:
+
+- `chicken-wings` had two identical "Wing Included Sauce" dropdowns. Toast
+  models "two dipping sauces" as two single-selects because its editor cannot
+  express "choose up to two". Ours can, so they are one multi-select named
+  "Wing Sauces". **This changes what the guest sees**; confirm with the kitchen.
+- `fish-and-chips` had "Extra Tartar" in both its own modifiers and the shared
+  sauce list. Renamed to "Extra Tartar (with the fish)".
+- `caesar-salad` had "No Dressing" in both the dressing group and its options.
+  Removed the duplicate.
+
+Caught by placing a test order that came back "Malformed options", not by the
+type checker. There is no compile-time protection against this; if a future
+harvest adds an item, place a test order for it.
+
+**The events page is a recurring week, not a calendar.** Their calendar plugin
+produced an empty page precisely because recurring nights need data entry that
+nobody does. A hand-written week cannot go stale. **The seam:** the day they
+have a one-off (New Year's, a touring band), it goes in a dated list *above*
+the weekly one, not into a plugin.
+
+**The ordering panel is on the light surface.** It came from Copper's dark site
+and its palette was translated wholesale, not patched per element. Watch for
+leftovers: a blanket rename produced `text-cream-light-dim`, a class that does
+not exist, and 61 contrast failures followed from it. Search for classes that
+do not resolve before trusting a screenshot.
+
+**No embedded map.** A Google Maps iframe loads third-party script on every page
+view and does nothing a link to the visitor's own maps app does not do.
+
+**No `www`.** When the subdomain is attached in Vercel, add the apex form only;
+the `www` form gets no certificate and fails.
+
+---
+
+## The proposal
+
+Lives at `public/pitch/stagecoach.html`, served at the root of
+`stagecoach.glazedweb.com` by the host-scoped rewrites in `next.config.ts`, with
+the demo at `/demo` on that host. Both the pitch host and `/pitch/*` send
+`X-Robots-Tag: noindex, nofollow`.
+
+The demo links inside it resolve their hrefs at load, because the site is at
+`/demo` **only** on the pitch host and at the root everywhere else. Hardcoding
+either would produce a dead link on the other domain.
+
+**Delete the pitch file and the rewrites once they sign or pass.**

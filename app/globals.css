@@ -1,26 +1,192 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ---------------------------------------------------------------------------
+   The palette is the logo's palette, sampled from the client's own artwork
+   (public/brand/logo.png) rather than eyeballed. Three colors carry 95% of the
+   painted pixels of that mark:
+
+     #E0D8C8  58%  the cream field
+     #902828  21%  the red of the wordmark and the outer ring
+     #000000  16%  the coach, the horses, the inner ring
+
+   Everything below is derived from those three. Contrast is computed, not
+   judged (glaze.md), and the pairs this site actually uses measure:
+
+     ink on cream-light     15.94  AAA
+     body on cream-light     8.49  AAA
+     red on cream-light      7.01  AAA
+     muted on cream-light    5.91  AA
+     muted on cream          4.96  AA
+     cream-light on ink     15.94  AAA
+     cream-light on red      7.01  AAA
+     cream-dim on ink       10.38  AAA
+     cream-dim on ink-soft   9.32  AAA
+     red on cream            5.88  AA
+     cream-light on red-deep 9.64  AAA
+
+   Measured with the WCAG relative-luminance formula, not judged by eye. The
+   pair to watch is the logo's own red on the logo's own cream, 5.88, which
+   passes AA and not AAA, so that combination is used for headings and never
+   for long body copy. Red text on the dark surfaces would fail outright, so
+   links on ink use cream, not red.
+--------------------------------------------------------------------------- */
+
+@theme {
+  --color-cream: #e0d8c8;
+  --color-cream-light: #f0ebe1;
+  --color-cream-dim: #c9bfa9;
+  --color-ink: #14100c;
+  --color-ink-soft: #221b14;
+  --color-ink-line: #3a2f24;
+  --color-red: #902828;
+  --color-red-light: #b13636;
+  --color-red-deep: #6d1c1c;
+  /* Accent red for TEXT on the dark surfaces. The logo's red and even
+     red-light measure 3.1:1 on ink, which fails, and the first pass of this
+     build shipped red-light eyebrows on every dark hero before the auditor
+     caught them. This is the same hue carried up until it passes: 7.84 on ink,
+     7.05 on ink-soft, both AAA. Backgrounds still use red and red-light;
+     only type uses this. */
+  --color-red-pale: #e29288;
+  --color-body: #4a4038;
+  /* Darkened from the first pass: #6b5f52 measured 4.38 on the cream
+     surface, which is under AA, and the auditor caught it on a figure
+     caption. This is 4.96 on cream, 5.91 on cream-light, 7.02 on white. */
+  --color-muted: #635749;
+
+  --font-display: var(--font-display), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-sans), system-ui, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  /* glaze.md failure log: a harness that scrolls cannot settle with smooth
+     scrolling on, and a visitor who asked for less motion did not ask for a
+     page that slides under them. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+  body {
+    background: var(--color-cream-light);
+    color: var(--color-body);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  /* Tailwind 4's preflight drops the pointer cursor on buttons. Put it back;
+     Kevin caught this missing on the Copper build. */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-red);
+    outline-offset: 2px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* The Jelly components arrived from the Copper build using a bare `display`
+   class for the display face, which lived in that site's stylesheet. Ported
+   here rather than rewritten across four components, so the next Jelly port
+   is a copy rather than a diff. */
+.display {
+  font-family: var(--font-display);
+}
+
+/* The reveal system. Rule one from glaze.md: the un-animated state is the
+   finished state, so elements are visible by default and only hidden once
+   JavaScript has confirmed it can animate them. A blocked script or reduced
+   motion leaves a complete page rather than an empty one. */
+@media (prefers-reduced-motion: no-preference) {
+  .js-reveal [data-reveal] {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  .js-reveal [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   The ordering status chip. Ported with the Jelly components from the Copper
+   build, where these classes lived in that site's stylesheet; without them the
+   chip renders as unspaced text ("Taking orders·ready in about 20 minutes"),
+   which is how this omission was caught in a screenshot rather than by the
+   type checker. Recolored for the light surface here.
+--------------------------------------------------------------------------- */
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 30px;
+  padding: 6px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--color-cream-dim);
+  background: #fff;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.status-chip b {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+.status-sep {
+  opacity: 0.45;
+}
+.status-detail {
+  letter-spacing: 0.03em;
+  text-transform: none;
+}
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex: none;
+}
+/* #2f7a3d on white is 5.3:1, so the dot's meaning survives if a visitor
+   cannot separate the hues: the words next to it say the same thing. */
+.status-open {
+  border-color: rgba(47, 122, 61, 0.35);
+}
+.status-open .status-dot {
+  background: #2f7a3d;
+  animation: statusPulse 2.6s ease-out infinite;
+}
+.status-closed {
+  border-color: rgba(144, 40, 40, 0.35);
+}
+.status-closed .status-dot {
+  background: var(--color-red);
+}
+@keyframes statusPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(47, 122, 61, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(47, 122, 61, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(47, 122, 61, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .status-open .status-dot {
+    animation: none !important;
+  }
 }
