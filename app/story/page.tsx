@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { SITE } from "@/lib/site";
+import PageMasthead from "@/components/PageMasthead";
 
 export const metadata: Metadata = {
   title: `Since ${SITE.since}`,
@@ -20,24 +21,10 @@ export const metadata: Metadata = {
 export default function StoryPage() {
   return (
     <>
-      <section className="relative isolate overflow-hidden border-b border-cream-dim bg-ink">
-        <Image
-          src="/brand/exterior.webp"
-          alt=""
-          width={1600}
-          height={1067}
-          className="absolute inset-0 h-full w-full object-cover opacity-30"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/60 to-ink" />
-        <div className="relative mx-auto max-w-4xl px-5 py-20">
-          <p className="font-sans text-xs uppercase tracking-[0.24em] text-red-pale">
-            {SITE.tagline}
-          </p>
-          <h1 className="mt-3 font-display text-4xl leading-tight text-cream-light sm:text-5xl">
-            Built in {SITE.since}, on the road to Chicago.
-          </h1>
-        </div>
-      </section>
+      <PageMasthead
+        eyebrow={SITE.tagline}
+        title={`Built in ${SITE.since}, on the road to Chicago.`}
+      />
 
       <div className="mx-auto max-w-3xl px-5 py-16">
         <div className="space-y-6 text-lg leading-relaxed text-body" data-reveal>

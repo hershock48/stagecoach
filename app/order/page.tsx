@@ -4,6 +4,7 @@ import OrderClient from "@/components/ordering/OrderClient";
 import { guestMenu } from "@/lib/ordering/menu";
 import { getStore } from "@/lib/ordering/store";
 import { SITE } from "@/lib/site";
+import PageMasthead from "@/components/PageMasthead";
 
 export const metadata: Metadata = {
   title: "Order pickup",
@@ -20,21 +21,13 @@ export default async function OrderPage() {
   const { sections } = await guestMenu(getStore());
   return (
     <>
-      <section className="border-b border-cream-dim bg-ink">
-        <div className="mx-auto max-w-5xl px-5 py-14">
-          <p className="font-sans text-xs uppercase tracking-[0.24em] text-red-pale">
-            {SITE.city}, Michigan
-          </p>
-          <h1 className="mt-3 font-display text-4xl text-cream-light sm:text-5xl">
-            Order pickup.
-          </h1>
-          {/* What the guest does, nothing about how the ordering is built. Who
-              runs the checkout is pitch material, not menu copy. */}
-          <p className="mt-4 max-w-lg text-lg leading-relaxed text-cream-dim">
-            Order ahead, pick it up at the bar.
-          </p>
-        </div>
-      </section>
+      {/* What the guest does, nothing about how the ordering is built. Who
+          runs the checkout is pitch material, not menu copy. */}
+      <PageMasthead
+        eyebrow={`${SITE.city}, Michigan`}
+        title="Order pickup."
+        lede="Order ahead, pick it up at the bar."
+      />
 
       <div className="mx-auto max-w-5xl px-5 py-12">
         <OrderClient sections={sections} />

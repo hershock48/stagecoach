@@ -190,3 +190,129 @@
     animation: none !important;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   LETTERPRESS. The building is from 1838 and the type of that decade was
+   printed, not designed: fat-face display, heavy rules, small caps, ornaments
+   between sections. This block is the vocabulary the pages compose from, and
+   it is what keeps the site from looking like a template with a photo in it.
+--------------------------------------------------------------------------- */
+
+/* A printer's double rule: one heavy line, one hair, the way a broadside
+   separates a heading from the notice under it. */
+.rule-double {
+  border-top: 3px solid var(--color-ink);
+  border-bottom: 1px solid var(--color-ink);
+  height: 5px;
+}
+.rule-hair {
+  height: 1px;
+  background: var(--color-cream-dim);
+}
+
+/* Section label: small, letterspaced, sitting on its own rule. */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+/* The ornament between sections: a hairline that breaks for a small coach.
+   Cheap in bytes, and it is the client's own mark doing the work rather than
+   a generic divider glyph. */
+.ornament {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: var(--color-cream-dim);
+}
+.ornament::before,
+.ornament::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: currentColor;
+}
+.ornament span {
+  font-size: 0.85rem;
+  letter-spacing: 0.4em;
+  color: var(--color-red);
+}
+
+/* ---------------------------------------------------------------------------
+   THE COACH. See components/Coach.tsx for why each layer exists and why the
+   wheels do not spin.
+--------------------------------------------------------------------------- */
+.coach-lane {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  /* The road it runs on. */
+  border-bottom: 2px solid currentColor;
+}
+.coach-travel {
+  --scrub: 0;
+  position: relative;
+  display: block;
+  width: max-content;
+  /* Parked at rest by default: the finished state, with no JS involved. The
+     scrub term is zero until the component sets it. */
+  transform: translateX(calc(var(--scrub) * 42vw));
+  will-change: transform;
+}
+.coach-bob {
+  display: block;
+}
+.coach-art {
+  display: block;
+  width: clamp(150px, 26vw, 300px);
+  height: auto;
+  /* Sits ON the road rule rather than above it. */
+  margin-bottom: -2px;
+}
+.coach-dust {
+  position: absolute;
+  bottom: 2px;
+  left: 6%;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .coach-lane.is-live .coach-travel {
+    animation: coachIn 1500ms cubic-bezier(0.16, 0.84, 0.36, 1) both;
+  }
+  .coach-lane.is-live .coach-bob {
+    /* Two beats to a stride, offset from the entrance so the settle and the
+       bob do not land on the same frame and read as one bounce. */
+    animation: coachBob 460ms ease-in-out 1500ms infinite;
+  }
+  .coach-lane.is-live .coach-dust {
+    animation: coachDust 900ms ease-out infinite;
+  }
+  .coach-lane.is-live .coach-dust-1 { animation-delay: 1500ms; }
+  .coach-lane.is-live .coach-dust-2 { animation-delay: 1800ms; left: 11%; }
+  .coach-lane.is-live .coach-dust-3 { animation-delay: 2100ms; left: 3%; }
+}
+
+@keyframes coachIn {
+  from {
+    transform: translateX(-115%);
+  }
+  to {
+    transform: translateX(calc(var(--scrub) * 42vw));
+  }
+}
+@keyframes coachBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+@keyframes coachDust {
+  0% { opacity: 0.22; transform: translate(0, 0) scale(0.5); }
+  100% { opacity: 0; transform: translate(-46px, -20px) scale(2.1); }
+}

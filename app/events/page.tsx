@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { SITE, WEEKLY_EVENTS } from "@/lib/site";
+import PageMasthead from "@/components/PageMasthead";
 
 export const metadata: Metadata = {
   title: "What's on this week",
@@ -21,20 +22,11 @@ export const metadata: Metadata = {
 export default function EventsPage() {
   return (
     <>
-      <section className="border-b border-cream-dim bg-ink">
-        <div className="mx-auto max-w-4xl px-5 py-16">
-          <p className="font-sans text-xs uppercase tracking-[0.24em] text-red-pale">
-            Every single week
-          </p>
-          <h1 className="mt-3 font-display text-4xl text-cream-light sm:text-5xl">
-            What&rsquo;s on.
-          </h1>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-cream-dim">
-            Four nights a week the room has something going on, and none of it
-            needs a ticket. Walk in, grab a stool, play along.
-          </p>
-        </div>
-      </section>
+      <PageMasthead
+        eyebrow="Every single week"
+        title="What's on."
+        lede="Four nights a week the room has something going on, and none of it needs a ticket. Walk in, grab a stool, play along."
+      />
 
       <div className="mx-auto max-w-4xl px-5 py-16">
         <ol className="space-y-8">

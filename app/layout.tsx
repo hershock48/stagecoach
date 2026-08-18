@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Source_Sans_3 } from "next/font/google";
+import { Abril_Fatface, Source_Sans_3 } from "next/font/google";
 import Link from "next/link";
 import Image from "next/image";
 import { SITE } from "@/lib/site";
@@ -8,11 +8,18 @@ import Reveal from "@/components/Reveal";
 
 // Self-hosted at build time by next/font, which is what makes this compliant
 // with the no-rented-dependencies rule: no runtime request to a font CDN.
-// Playfair for the display face because the logo's wordmark is a high-contrast
-// serif with old-style flourishes and this is the closest free companion to it;
-// the mark itself is always the artwork, never type.
-const display = Playfair_Display({
+//
+// Abril Fatface for display. The first pass used Playfair, which is elegant
+// and is also on half the restaurant sites on the internet; Kevin's read was
+// that the whole site looked like it came off a template, and the safe font
+// was part of that. Fat face is the advertising type of the 1820s to 1840s,
+// the decade this building went up, and it is what an 1838 broadside for a
+// stagecoach line was actually set in. It also echoes the logo's own
+// high-contrast wordmark. Display sizes only: it has one weight and no
+// business setting body copy.
+const display = Abril_Fatface({
   subsets: ["latin"],
+  weight: "400",
   variable: "--font-display",
   display: "swap",
 });

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SITE } from "@/lib/site";
 import InquiryForm from "@/components/InquiryForm";
 import OpenNow from "@/components/OpenNow";
+import PageMasthead from "@/components/PageMasthead";
 
 export const metadata: Metadata = {
   title: "Visit",
@@ -17,21 +18,13 @@ export const dynamic = "force-dynamic";
 export default function VisitPage() {
   return (
     <>
-      <section className="border-b border-cream-dim bg-ink">
-        <div className="mx-auto max-w-5xl px-5 py-16">
-          <p className="font-sans text-xs uppercase tracking-[0.24em] text-red-pale">
-            {SITE.city}, Michigan
-          </p>
-          <h1 className="mt-3 font-display text-4xl text-cream-light sm:text-5xl">Visit.</h1>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-cream-dim">
-            On Michigan Avenue, in the middle of everything, where it has been
-            since {SITE.since}.
-          </p>
-          <div className="mt-7">
-            <OpenNow />
-          </div>
-        </div>
-      </section>
+      <PageMasthead
+        eyebrow={`${SITE.city}, Michigan`}
+        title="Visit."
+        lede={`On Michigan Avenue, in the middle of everything, where it has been since ${SITE.since}.`}
+      >
+        <OpenNow />
+      </PageMasthead>
 
       <div className="mx-auto max-w-5xl px-5 py-16">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr]">

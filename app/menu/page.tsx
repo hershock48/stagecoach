@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { SITE } from "@/lib/site";
+import PageMasthead from "@/components/PageMasthead";
 import SEED_MENU from "@/lib/ordering/toast-menu.json";
 import type { MenuDocSection } from "@/lib/ordering/menu";
 
@@ -29,33 +30,26 @@ function money(cents: number): string {
 export default function MenuPage() {
   return (
     <>
-      <section className="border-b border-cream-dim bg-ink">
-        <div className="mx-auto max-w-4xl px-5 py-16">
-          <p className="font-sans text-xs uppercase tracking-[0.24em] text-red-pale">
-            {SITE.tagline}
-          </p>
-          <h1 className="mt-3 font-display text-4xl text-cream-light sm:text-5xl">The menu.</h1>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-cream-dim">
-            Scratch kitchen under Executive Chef {SITE.chef}. Everything below is
-            what the kitchen is selling today, and you can order any of it for
-            pickup.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              href="/order"
-              className="rounded-sm bg-red px-6 py-3.5 font-sans text-sm uppercase tracking-[0.14em] text-cream-light transition-colors hover:bg-red-light"
-            >
-              Order pickup
-            </Link>
-            <a
-              href={SITE.phoneHref}
-              className="rounded-sm border border-cream-dim/50 px-6 py-3.5 font-sans text-sm uppercase tracking-[0.14em] text-cream-light transition-colors hover:border-cream-light"
-            >
-              Call {SITE.phone}
-            </a>
-          </div>
+      <PageMasthead
+        eyebrow="Bill of fare"
+        title="The menu."
+        lede={`Scratch kitchen under Executive Chef ${SITE.chef}. Everything below is what the kitchen is selling today, and you can order any of it for pickup.`}
+      >
+        <div className="flex flex-wrap gap-3">
+          <Link
+            href="/order"
+            className="rounded-sm bg-red px-7 py-4 font-sans text-sm uppercase tracking-[0.14em] text-cream-light transition-colors hover:bg-red-deep"
+          >
+            Order pickup
+          </Link>
+          <a
+            href={SITE.phoneHref}
+            className="rounded-sm border-2 border-ink px-7 py-[14px] font-sans text-sm uppercase tracking-[0.14em] text-ink transition-colors hover:bg-ink hover:text-cream-light"
+          >
+            Call {SITE.phone}
+          </a>
         </div>
-      </section>
+      </PageMasthead>
 
       {/* Jump list. A sixty-one item menu on a phone needs one. */}
       <nav
@@ -79,8 +73,8 @@ export default function MenuPage() {
       <div className="mx-auto max-w-4xl px-5 py-16">
         {sections.map((section) => (
           <section key={section.name} id={slug(section.name)} className="scroll-mt-32 pb-14">
-            <h2 className="font-display text-3xl text-ink">{section.name}</h2>
-            <div className="mt-1 h-0.5 w-12 bg-red" />
+            <h2 className="font-display text-[clamp(1.8rem,4vw,2.6rem)] leading-none text-ink">{section.name}</h2>
+            <div className="mt-3 rule-double" />
             <ul className="mt-7 space-y-6">
               {section.items
                 .filter((i) => !i.hidden)
