@@ -71,9 +71,18 @@ export default function OrderClient({ sections }: { sections: OrderableSection[]
   }, []);
 
   useEffect(() => {
-    refreshLive();
-    const t = setInterval(refreshLive, 30000);
-    return () => clearInterval(t);
+    let alive = true;
+    // Deferred, not inline: see the note in KitchenClient. Same rule, same fix.
+    const tick = () => {
+      if (alive) refreshLive();
+    };
+    const first = setTimeout(tick, 0);
+    const t = setInterval(tick, 30000);
+    return () => {
+      alive = false;
+      clearTimeout(first);
+      clearInterval(t);
+    };
   }, [refreshLive]);
 
   // Confirmation polling: the "Accepted" flip is the product moment, worth a

@@ -66,6 +66,8 @@ export default function KitchenClient({ sections }: { sections: OrderableSection
     });
   }, []);
 
+  const [now, setNow] = useState(() => Date.now());
+
   const poll = useCallback(async () => {
     try {
       const [ordersRes, stateRes] = await Promise.all([
@@ -116,9 +118,23 @@ export default function KitchenClient({ sections }: { sections: OrderableSection
 
   useEffect(() => {
     if (!authed) return;
-    poll();
-    const t = setInterval(poll, 5000);
-    return () => clearInterval(t);
+    let alive = true;
+    // Deferred rather than called inline: a setState synchronously inside an
+    // effect body cascades renders, and React's lint rules flag it. A zero
+    // timeout gets the first poll off the effect body without delaying it in
+    // any way a human could perceive.
+    const tick = () => {
+      if (!alive) return;
+      poll();
+      setNow(Date.now());
+    };
+    const first = setTimeout(tick, 0);
+    const t = setInterval(tick, 5000);
+    return () => {
+      alive = false;
+      clearTimeout(first);
+      clearInterval(t);
+    };
   }, [authed, poll]);
 
   async function login() {
@@ -197,7 +213,11 @@ export default function KitchenClient({ sections }: { sections: OrderableSection
   }
 
   const newCount = orders.filter((o) => o.status === "new").length;
-  const paused = state?.pausedUntil != null && state.pausedUntil > Date.now();
+  // Date.now() during render is impure: the pause countdown would only move
+  // when something else happened to re-render, and React's own lint rules
+  // reject it. `now` ticks on the same 5s poll that refreshes everything else,
+  // so the countdown is both honest and pure.
+  const paused = state?.pausedUntil != null && state.pausedUntil > now;
 
   return (
     <div className="pb-16">
@@ -357,7 +377,7 @@ export default function KitchenClient({ sections }: { sections: OrderableSection
                   onClick={() => patchState({ pauseMinutes: 0 })}
                   className="rounded-sm border border-[#7dd18a]/50 bg-[#7dd18a]/10 px-4 py-3 text-sm text-[#7dd18a]"
                 >
-                  Paused · resumes in {Math.max(1, Math.ceil((state!.pausedUntil! - Date.now()) / 60000))} min · tap to resume now
+                  Paused · resumes in {Math.max(1, Math.ceil((state!.pausedUntil! - now) / 60000))} min · tap to resume now
                 </button>
               ) : (
                 <>
