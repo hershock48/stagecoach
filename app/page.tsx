@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { SITE, WEEKLY_EVENTS, FEATURED_COCKTAILS } from "@/lib/site";
 import OpenNow from "@/components/OpenNow";
-import Coach from "@/components/Coach";
+import CoachArrival from "@/components/CoachArrival";
 
 export const metadata: Metadata = {
   title: `${SITE.name} · Bar and kitchen in Marshall, Michigan`,
@@ -37,7 +37,7 @@ export default function Home() {
           badge, and the coach itself running along the road at the bottom.
           The photograph still exists; it appears further down, full width,
           where it is a photograph rather than a background. */}
-      <section className="relative overflow-hidden bg-cream-light">
+      <section className="relative overflow-x-clip bg-cream-light">
         <div className="mx-auto max-w-6xl px-5 pt-10 sm:pt-14">
           <div className="rule-double" />
           <div className="flex flex-wrap items-center justify-between gap-3 py-2.5">
@@ -48,62 +48,58 @@ export default function Home() {
           </div>
           <div className="rule-hair" />
 
-          <div className="grid items-center gap-8 py-10 lg:grid-cols-[1fr_auto] lg:gap-12 lg:py-14">
-            <div>
-              <h1 className="font-display text-[clamp(2.6rem,8vw,5.4rem)] leading-[0.95] text-ink">
-                The stagecoaches
-                <br />
-                stopped here first.
-                <span className="mt-2 block text-red">People still do.</span>
-              </h1>
-              <p className="mt-7 max-w-lg text-lg leading-relaxed text-body">
+          {/* The arrival gets its own band, above the headline. It lived
+              beside the headline first and the coach flew straight through
+              "stopped here first" on the way in, which is a collision, not a
+              composition. Here the flight path is clear paper. */}
+          <div className="py-8 sm:py-10">
+            <CoachArrival className="mx-auto w-full max-w-[22rem] sm:max-w-[26rem]" />
+          </div>
+
+          <div className="pb-12 lg:pb-16">
+            <h1 className="max-w-4xl font-display text-[clamp(2.6rem,8vw,5.4rem)] leading-[0.95] text-ink">
+              The stagecoaches stopped here first.
+              <span className="mt-2 block text-red">People still do.</span>
+            </h1>
+            <div className="mt-7 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+              <p className="max-w-lg text-lg leading-relaxed text-body">
                 One of Michigan&rsquo;s oldest stagecoach stops, on the Territorial
                 Road between Detroit and Chicago. Scratch kitchen, full bar, and
                 something on four nights a week.
               </p>
-              <div className="mt-8 flex flex-wrap items-center gap-3">
-                <Link
-                  href="/order"
-                  className="rounded-sm bg-red px-7 py-4 font-sans text-sm uppercase tracking-[0.14em] text-cream-light transition-colors hover:bg-red-deep"
-                >
-                  Order pickup
-                </Link>
-                <Link
-                  href="/menu"
-                  className="rounded-sm border-2 border-ink px-7 py-[14px] font-sans text-sm uppercase tracking-[0.14em] text-ink transition-colors hover:bg-ink hover:text-cream-light"
-                >
-                  See the menu
-                </Link>
-                <a
-                  href={SITE.phoneHref}
-                  className="px-2 py-4 font-sans text-sm text-body underline underline-offset-4 transition-colors hover:text-red"
-                >
-                  {SITE.phone}
-                </a>
-              </div>
-              <div className="mt-7">
+              <div className="lg:pb-1">
                 <OpenNow />
               </div>
             </div>
-
-            <Image
-              src="/brand/logo.png"
-              alt={SITE.name}
-              width={720}
-              height={613}
-              priority
-              className="hidden h-auto w-56 justify-self-end lg:block xl:w-64"
-            />
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <Link
+                href="/order"
+                className="rounded-sm bg-red px-7 py-4 font-sans text-sm uppercase tracking-[0.14em] text-cream-light transition-colors hover:bg-red-deep"
+              >
+                Order pickup
+              </Link>
+              <Link
+                href="/menu"
+                className="rounded-sm border-2 border-ink px-7 py-[14px] font-sans text-sm uppercase tracking-[0.14em] text-ink transition-colors hover:bg-ink hover:text-cream-light"
+              >
+                See the menu
+              </Link>
+              <a
+                href={SITE.phoneHref}
+                className="px-2 py-4 font-sans text-sm text-body underline underline-offset-4 transition-colors hover:text-red"
+              >
+                {SITE.phone}
+              </a>
+            </div>
           </div>
         </div>
 
-        {/* The road. The coach gallops in from the left, then keeps travelling
-            as the visitor scrolls. See components/Coach.tsx. */}
         <div className="mx-auto max-w-6xl px-5">
-          <Coach className="text-ink" />
-          <p className="pt-2.5 text-center font-display text-sm tracking-[0.3em] text-red sm:text-base">
+          <div className="rule-double" />
+          <p className="py-2.5 text-center font-display text-sm tracking-[0.3em] text-red sm:text-base">
             {SITE.tagline.toUpperCase()}
           </p>
+          <div className="rule-hair" />
         </div>
       </section>
 

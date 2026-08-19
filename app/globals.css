@@ -242,77 +242,138 @@
 }
 
 /* ---------------------------------------------------------------------------
-   THE COACH. See components/Coach.tsx for why each layer exists and why the
-   wheels do not spin.
+   THE COACH ARRIVING INTO THE BADGE.
+
+   The first version of this was one flat SVG sliding along a rule, and Kevin's
+   verdict was exact: the wheels were not turning, the horses' legs were not
+   moving, the whip was not cracking, and the driver was travelling alone
+   instead of arriving into his own logo. So the mark was cut into layers by
+   tools/cut-mark.py and rigged properly.
+
+   Every position below is measured, from public/brand/mark.json. Nothing here
+   was nudged until it looked right; if the artwork is ever replaced, re-run
+   the tool and these numbers change with it.
 --------------------------------------------------------------------------- */
-.coach-lane {
+.badge-stage {
   position: relative;
-  overflow: hidden;
   width: 100%;
-  /* The road it runs on. */
-  border-bottom: 2px solid currentColor;
+  max-width: 30rem;
+  margin-inline: auto;
 }
-.coach-travel {
-  --scrub: 0;
-  position: relative;
+.badge-plate {
   display: block;
-  width: max-content;
-  /* Parked at rest by default: the finished state, with no JS involved. The
-     scrub term is zero until the component sets it. */
-  transform: translateX(calc(var(--scrub) * 42vw));
-  will-change: transform;
-}
-.coach-bob {
-  display: block;
-}
-.coach-art {
-  display: block;
-  width: clamp(150px, 26vw, 300px);
+  width: 100%;
   height: auto;
-  /* Sits ON the road rule rather than above it. */
-  margin-bottom: -2px;
 }
-.coach-dust {
+/* The coach's true rect inside the badge: 29.096% / 23.372%, 42.041% wide. */
+.coach-rig {
   position: absolute;
-  bottom: 2px;
-  left: 6%;
-  width: 12px;
-  height: 12px;
-  border-radius: 999px;
-  background: currentColor;
-  opacity: 0;
+  left: 29.096%;
+  top: 23.372%;
+  width: 42.041%;
+  color: #14100c; /* the badge's own black, not the page's ink token */
+}
+.rig-layer {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* Everything stacks on the base layer, which is the only static child and so
+   the only thing giving the rig a height. */
+.coach-rig > *:not(.rig-base) {
+  position: absolute;
+  inset: 0;
+}
+.coach-bound {
+  z-index: 0;
+  /* The hindquarters: what a horse pushes from, so the gather and extend
+     pivot where the power is. */
+  transform-origin: 96% 82%;
+}
+/* Measured hubs. This is what makes a wheel spin on its axle instead of
+   swinging around the middle of the picture. */
+.rig-wheel-rear {
+  transform-origin: 11.36% 74.385%;
+}
+.rig-wheel-front {
+  transform-origin: 46.664% 80.83%;
+}
+/* The driver's hand, where a whip actually pivots. */
+.rig-whip {
+  transform-origin: 55% 23%;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .coach-lane.is-live .coach-travel {
-    animation: coachIn 1500ms cubic-bezier(0.16, 0.84, 0.36, 1) both;
+  .badge-stage.is-arriving .coach-rig {
+    animation: coachArrive 2200ms cubic-bezier(0.2, 0.75, 0.3, 1) both;
   }
-  .coach-lane.is-live .coach-bob {
-    /* Two beats to a stride, offset from the entrance so the settle and the
-       bob do not land on the same frame and read as one bounce. */
-    animation: coachBob 460ms ease-in-out 1500ms infinite;
+  /* 4 turns in 2200ms. Twelve spokes means every 30 degrees is identical, so
+     any whole turn lands invisibly back on the artwork. */
+  .badge-stage.is-arriving .rig-wheel-rear,
+  .badge-stage.is-arriving .rig-wheel-front {
+    animation: wheelTurn 550ms linear 4;
   }
-  .coach-lane.is-live .coach-dust {
-    animation: coachDust 900ms ease-out infinite;
+  .badge-stage.is-arriving .coach-bound {
+    animation: horseBound 440ms ease-in-out 5;
   }
-  .coach-lane.is-live .coach-dust-1 { animation-delay: 1500ms; }
-  .coach-lane.is-live .coach-dust-2 { animation-delay: 1800ms; left: 11%; }
-  .coach-lane.is-live .coach-dust-3 { animation-delay: 2100ms; left: 3%; }
+  .badge-stage.is-arriving .rig-whip {
+    animation: whipCrack 1100ms ease-in-out 2;
+  }
 }
 
-@keyframes coachIn {
+@keyframes coachArrive {
   from {
-    transform: translateX(-115%);
+    transform: translateX(-190%) translateY(1.5%);
   }
   to {
-    transform: translateX(calc(var(--scrub) * 42vw));
+    transform: none;
   }
 }
-@keyframes coachBob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
+@keyframes wheelTurn {
+  to {
+    transform: rotate(360deg);
+  }
 }
-@keyframes coachDust {
-  0% { opacity: 0.22; transform: translate(0, 0) scale(0.5); }
-  100% { opacity: 0; transform: translate(-46px, -20px) scale(2.1); }
+/* A bounding gallop, carried by the body rather than the legs.
+   Cutting individual legs was tried and rejected: the two horses interleave
+   in this silhouette, so the pieces came away as floating hooves. What a
+   galloping pair actually does, and what survives at the size this mark
+   renders, is GATHER and EXTEND -- the frame compresses as the hind legs come
+   under, then stretches as they drive. scaleX does that, translateY carries
+   the bound, and a degree of pitch keeps it from looking mechanical. The
+   transform-origin is the hindquarters, set where .coach-bound is defined. */
+@keyframes horseBound {
+  0%,
+  100% {
+    transform: translateY(0) scaleX(1) rotate(0deg);
+  }
+  30% {
+    /* gather: shorter, higher, nose up */
+    transform: translateY(-5%) scaleX(0.965) rotate(-1.8deg);
+  }
+  62% {
+    /* extend: reaching, landing */
+    transform: translateY(1.8%) scaleX(1.035) rotate(0.9deg);
+  }
+}
+/* The crack: the lash gathers back, snaps forward past its rest position, and
+   settles. The overshoot is the whole trick; a symmetric wobble reads as a
+   flag, not a whip. */
+@keyframes whipCrack {
+  0% {
+    transform: rotate(0deg) scaleY(1);
+  }
+  30% {
+    transform: rotate(-7deg) scaleY(0.94);
+  }
+  42% {
+    transform: rotate(9deg) scaleY(1.06);
+  }
+  58% {
+    transform: rotate(-3deg) scaleY(0.98);
+  }
+  75%,
+  100% {
+    transform: rotate(0deg) scaleY(1);
+  }
 }
