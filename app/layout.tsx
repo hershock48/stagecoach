@@ -185,7 +185,13 @@ export default function RootLayout({
         <main id="main">{children}</main>
 
         <footer className="mt-20 bg-ink text-cream-dim">
-          <div className="mx-auto grid max-w-6xl gap-8 px-5 py-14 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mx-auto max-w-6xl px-5 pt-12">
+            <p className="text-center font-display text-[clamp(1.5rem,4vw,2.4rem)] leading-none text-cream-light">
+              {SITE.tagline}, since {SITE.since}.
+            </p>
+            <div className="mt-6 h-px bg-ink-line" />
+          </div>
+          <div className="mx-auto grid max-w-6xl gap-8 px-5 py-12 sm:grid-cols-2 lg:grid-cols-4">
             <div>
               <Image
                 src="/brand/logo.png"
@@ -195,11 +201,11 @@ export default function RootLayout({
                 className="h-16 w-auto"
               />
               <p className="mt-4 text-sm leading-relaxed">
-                {SITE.tagline}, since {SITE.since}.
+                One of Michigan&rsquo;s oldest stagecoach stops, still open.
               </p>
             </div>
             <div>
-              <h2 className="font-display text-sm uppercase tracking-[0.2em] text-cream-light">
+              <h2 className="eyebrow border-b border-ink-line pb-2 text-cream-light">
                 Find us
               </h2>
               <address className="mt-3 space-y-1 text-sm not-italic leading-relaxed">
@@ -215,7 +221,7 @@ export default function RootLayout({
               </address>
             </div>
             <div>
-              <h2 className="font-display text-sm uppercase tracking-[0.2em] text-cream-light">
+              <h2 className="eyebrow border-b border-ink-line pb-2 text-cream-light">
                 Hours
               </h2>
               <dl className="mt-3 space-y-1.5 text-sm">
@@ -230,7 +236,7 @@ export default function RootLayout({
               </dl>
             </div>
             <div>
-              <h2 className="font-display text-sm uppercase tracking-[0.2em] text-cream-light">
+              <h2 className="eyebrow border-b border-ink-line pb-2 text-cream-light">
                 More
               </h2>
               <ul className="mt-3 space-y-1.5 text-sm">

@@ -54,7 +54,7 @@ export default function MenuPage() {
       {/* Jump list. A sixty-one item menu on a phone needs one. */}
       <nav
         aria-label="Menu sections"
-        className="sticky top-[57px] z-30 border-b border-cream-dim bg-cream-light/95 backdrop-blur"
+        className="sticky top-[var(--header-h)] z-30 border-b border-cream-dim bg-cream-light/95 backdrop-blur"
       >
         <ul className="mx-auto flex max-w-4xl gap-1 overflow-x-auto px-5 py-2.5">
           {sections.map((s) => (
@@ -72,7 +72,7 @@ export default function MenuPage() {
 
       <div className="mx-auto max-w-4xl px-5 py-16">
         {sections.map((section) => (
-          <section key={section.name} id={slug(section.name)} className="scroll-mt-32 pb-14">
+          <section key={section.name} id={slug(section.name)} className="scroll-mt-[calc(var(--header-h)+3.5rem)] pb-14">
             <h2 className="font-display text-[clamp(1.8rem,4vw,2.6rem)] leading-none text-ink">{section.name}</h2>
             <div className="mt-3 rule-double" />
             <ul className="mt-7 space-y-6">

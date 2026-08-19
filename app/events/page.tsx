@@ -19,7 +19,16 @@ export const metadata: Metadata = {
 //
 // The day this page needs a one-off (a New Year's party, a touring band), it
 // gets a dated list ABOVE this one. Named in the README as the seam.
+//
+// The week is set as a printed bill rather than a grid of picture cards. The
+// posters are the client's own and they stay, but they are moved to a strip at
+// the foot of the page: a purple DJ Bingo flyer and a wood-panelled TV set
+// next to fat-face type were fighting each other, and the flyers were winning.
+// Presented as what they are, posters on a wall, they read as character
+// instead of clutter.
 export default function EventsPage() {
+  const posters = WEEKLY_EVENTS.filter((e) => e.image);
+
   return (
     <>
       <PageMasthead
@@ -28,65 +37,87 @@ export default function EventsPage() {
         lede="Four nights a week the room has something going on, and none of it needs a ticket. Walk in, grab a stool, play along."
       />
 
-      <div className="mx-auto max-w-4xl px-5 py-16">
-        <ol className="space-y-8">
+      <div className="mx-auto max-w-4xl px-5 pb-16">
+        <div className="rule-double" />
+        <ol>
           {WEEKLY_EVENTS.map((e) => (
             <li
               key={e.day}
               data-reveal
-              className="grid gap-6 overflow-hidden rounded-sm border border-cream-dim bg-white sm:grid-cols-[220px_1fr]"
+              className="grid grid-cols-[1fr_auto] items-baseline gap-x-6 gap-y-1.5 border-b border-cream-dim py-7"
             >
-              {e.image ? (
-                <Image
-                  src={e.image}
-                  alt=""
-                  width={1000}
-                  height={1000}
-                  className="h-52 w-full object-cover sm:h-full"
-                />
-              ) : (
-                <div className="flex h-52 w-full items-center justify-center bg-ink sm:h-full">
-                  <span className="font-display text-5xl text-red-pale">
-                    {e.day.slice(0, 3)}
-                  </span>
-                </div>
-              )}
-              <div className="p-6 sm:py-8 sm:pr-8">
-                <p className="font-sans text-xs uppercase tracking-[0.2em] text-red">
-                  {e.day}
-                  {e.time ? ` · ${e.time}` : ""}
-                </p>
-                <h2 className="mt-2 font-display text-2xl text-ink">{e.name}</h2>
-                <p className="mt-2 leading-relaxed text-body">{e.blurb}</p>
+              <p className="eyebrow col-span-2 text-red sm:col-span-1">{e.day}</p>
+              <p className="col-start-2 row-start-1 hidden text-sm text-muted sm:block">
+                {e.time ?? "Time varies"}
+              </p>
+              <h2 className="col-span-2 font-display text-[clamp(1.9rem,5vw,2.8rem)] leading-none text-ink">
+                {e.name}
+              </h2>
+              <p className="col-span-2 max-w-xl text-lg leading-relaxed text-body">
+                {e.blurb}
                 {!e.time && (
-                  /* PLACEHOLDER, said out loud rather than invented: their Toast
-                     page advertises Saturday live music with no start time. */
-                  <p className="mt-3 text-sm text-muted">
-                    Start time varies. Call the bar or check Facebook for who is
+                  /* PLACEHOLDER, said out loud rather than invented: their
+                     Toast page advertises Saturday live music with no start
+                     time, and their own site does not mention it at all. */
+                  <span className="text-muted">
+                    {" "}
+                    Start time varies, so call the bar or check Facebook for who is
                     playing this week.
-                  </p>
+                  </span>
                 )}
-              </div>
+              </p>
+              <p className="col-span-2 text-sm text-muted sm:hidden">
+                {e.time ?? "Time varies"}
+              </p>
             </li>
           ))}
         </ol>
 
-        <div className="mt-12 rounded-sm border border-cream-dim bg-cream p-8" data-reveal>
-          <h2 className="font-display text-2xl text-ink">Booking the room</h2>
-          <p className="mt-3 leading-relaxed text-body">
+        {posters.length > 0 && (
+          <section className="mt-14" data-reveal>
+            <div className="ornament">
+              <span>&#9670;</span>
+            </div>
+            <h2 className="mt-8 text-center font-display text-2xl text-ink">
+              The posters on the wall
+            </h2>
+            <ul className="mt-6 grid gap-5 sm:grid-cols-2">
+              {posters.map((e) => (
+                <li key={e.day} className="border-2 border-ink bg-white p-2.5">
+                  <Image
+                    src={e.image as string}
+                    alt={`${e.name} poster`}
+                    width={1000}
+                    height={1000}
+                    className="h-56 w-full object-contain"
+                  />
+                  <p className="eyebrow mt-2.5 text-center text-muted">
+                    {e.day}s
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <div className="mt-14 border-2 border-ink bg-cream p-8" data-reveal>
+          <h2 className="font-display text-[clamp(1.7rem,4vw,2.4rem)] leading-none text-ink">
+            Booking the room.
+          </h2>
+          <p className="mt-4 max-w-xl text-lg leading-relaxed text-body">
             Parties, work things, a band that wants a Saturday. Call the bar and
             ask for whoever is running the floor.
           </p>
-          <div className="mt-5 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-wrap gap-3">
             <a
               href={SITE.phoneHref}
-              className="rounded-sm bg-red px-6 py-3.5 font-sans text-sm uppercase tracking-[0.14em] text-cream-light transition-colors hover:bg-red-light"
+              className="rounded-sm bg-red px-7 py-4 font-sans text-sm uppercase tracking-[0.14em] text-cream-light transition-colors hover:bg-red-deep"
             >
               Call {SITE.phone}
             </a>
             <Link
               href="/visit"
-              className="rounded-sm border border-cream-dim px-6 py-3.5 font-sans text-sm uppercase tracking-[0.14em] text-ink transition-colors hover:border-red hover:text-red"
+              className="rounded-sm border-2 border-ink px-7 py-[14px] font-sans text-sm uppercase tracking-[0.14em] text-ink transition-colors hover:bg-ink hover:text-cream-light"
             >
               Send a message
             </Link>

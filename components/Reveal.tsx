@@ -52,7 +52,18 @@ export default function Reveal() {
     const mo = new MutationObserver(arm);
     mo.observe(document.body, { childList: true, subtree: true });
 
+    // The safety net. Hiding content with JS and un-hiding it on an event is
+    // a bet that the event fires. IntersectionObserver does not fire in every
+    // in-app browser, in some screenshot and print paths, or if a scroll never
+    // happens. If anything is still hidden after three seconds, show it: a
+    // visitor who missed an animation has lost nothing, a visitor looking at a
+    // blank page has lost everything.
+    const failsafe = window.setTimeout(() => {
+      document.documentElement.classList.remove("js-reveal");
+    }, 3000);
+
     return () => {
+      window.clearTimeout(failsafe);
       mo.disconnect();
       io.disconnect();
       document.documentElement.classList.remove("js-reveal");

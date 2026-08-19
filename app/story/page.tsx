@@ -47,10 +47,10 @@ export default function StoryPage() {
         </div>
 
         <figure
-          className="mt-12 rounded-sm border-l-4 border-red bg-cream px-7 py-6"
+          className="mt-12 border-y-2 border-ink bg-cream px-7 py-8"
           data-reveal
         >
-          <blockquote className="font-display text-xl leading-relaxed text-ink">
+          <blockquote className="font-display text-[clamp(1.3rem,3vw,1.75rem)] leading-snug text-ink">
             &ldquo;Today this is the oldest continuously open town between Detroit
             and Chicago and has become one of the rare, genuine early American
             places of historical interest in the Midwest. As always, a cordial
@@ -87,13 +87,13 @@ export default function StoryPage() {
         <div className="mt-12 flex flex-wrap gap-3" data-reveal>
           <Link
             href="/menu"
-            className="rounded-sm bg-ink px-7 py-4 font-sans text-sm uppercase tracking-[0.14em] text-cream-light transition-colors hover:bg-ink-soft"
+            className="rounded-sm bg-red px-7 py-4 font-sans text-sm uppercase tracking-[0.14em] text-cream-light transition-colors hover:bg-red-deep"
           >
             See the menu
           </Link>
           <Link
             href="/visit"
-            className="rounded-sm border border-cream-dim px-7 py-4 font-sans text-sm uppercase tracking-[0.14em] text-ink transition-colors hover:border-red hover:text-red"
+            className="rounded-sm border-2 border-ink px-7 py-[14px] font-sans text-sm uppercase tracking-[0.14em] text-ink transition-colors hover:bg-ink hover:text-cream-light"
           >
             Plan a visit
           </Link>

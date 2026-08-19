@@ -32,6 +32,10 @@
 --------------------------------------------------------------------------- */
 
 @theme {
+  /* The sticky header's real height, measured at 1280px: 69px. The menu's
+     jump nav pins under it and section anchors scroll clear of it. It was a
+     hardcoded 57px, which was the header's height two layouts ago. */
+  --header-h: 69px;
   --color-cream: #e0d8c8;
   --color-cream-light: #f0ebe1;
   --color-cream-dim: #c9bfa9;
@@ -117,6 +121,13 @@
   .js-reveal [data-reveal].is-in {
     opacity: 1;
     transform: none;
+  }
+}
+/* Printing a menu must never depend on whether a scroll animation ran. */
+@media print {
+  .js-reveal [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 
