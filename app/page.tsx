@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { SITE, WEEKLY_EVENTS, FEATURED_COCKTAILS } from "@/lib/site";
 import OpenNow from "@/components/OpenNow";
+import Tonight from "@/components/Tonight";
 import CoachArrival from "@/components/CoachArrival";
 
 export const metadata: Metadata = {
@@ -86,9 +87,23 @@ export default function Home() {
                 >
                   {SITE.phone}
                 </a>
+                {/* Their waitlist runs on Toast. It is not ours and nothing we
+                    built replaces it, so it is linked plainly rather than
+                    hidden: on a full Friday, putting your name in is the job. */}
+                <a
+                  href={SITE.toast.waitlist}
+                  target="_blank"
+                  rel="noopener"
+                  className="px-2 py-4 font-sans text-sm text-body underline underline-offset-4 transition-colors hover:text-red"
+                >
+                  Join the waitlist
+                </a>
               </div>
-              <div className="mt-6">
+              <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4">
                 <OpenNow />
+                {/* The question a visitor actually arrives with, answered
+                    before they have to read a week's worth of listings. */}
+                <Tonight />
               </div>
             </div>
 

@@ -76,6 +76,14 @@ export default function VisitPage() {
               >
                 Order pickup
               </Link>
+              <a
+                href={SITE.toast.waitlist}
+                target="_blank"
+                rel="noopener"
+                className="px-2 py-4 font-sans text-sm text-body underline underline-offset-4 transition-colors hover:text-red"
+              >
+                Join the waitlist
+              </a>
             </div>
 
             {/* A static map link, not an embedded iframe: an embed loads a

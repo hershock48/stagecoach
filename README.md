@@ -54,6 +54,9 @@ Current audit state: **0 axe violations** across all 7 routes at 390px and
 | `public/brand/` | Their logo and photography, lifted from their own site and Toast pages. |
 | `public/pitch/` | The proposal page and its share card. **Delete both, and the rewrites in `next.config.ts`, once they sign or pass.** |
 | `audit.mjs` | The standing Glazed Web auditor. Run it rather than writing a fresh one. |
+| `lib/tonight.ts` | Which event is on tonight. Domain logic, kept out of the component so it can be tested against a supplied clock. |
+| `tools/test-tonight.mjs` | Tests that logic across the week. `node tools/test-tonight.mjs`. Run it after touching `lib/tonight.ts` or `WEEKLY_EVENTS`. |
+| `tools/cut-mark.py` | Cuts the badge into the animatable layers the hero rig uses. Re-run it rather than hand-editing any layer. |
 
 ### Surfaces that cannot read from `lib/site.ts`
 

@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { SITE, WEEKLY_EVENTS } from "@/lib/site";
 import PageMasthead from "@/components/PageMasthead";
+import { tonightsEvent } from "@/lib/tonight";
 
 export const metadata: Metadata = {
   title: "What's on this week",
@@ -26,8 +27,16 @@ export const metadata: Metadata = {
 // next to fat-face type were fighting each other, and the flyers were winning.
 // Presented as what they are, posters on a wall, they read as character
 // instead of clutter.
+
+// Reads the clock to mark tonight's row, so it renders per request. A cached
+// page would keep pointing at the wrong night (glaze.md: route caching and
+// time do not mix).
+export const dynamic = "force-dynamic";
+
 export default function EventsPage() {
   const posters = WEEKLY_EVENTS.filter((e) => e.image);
+  const tonight = tonightsEvent();
+  const tonightName = tonight?.when === "tonight" ? tonight.event.name : null;
 
   return (
     <>
@@ -46,7 +55,14 @@ export default function EventsPage() {
               data-reveal
               className="grid grid-cols-[1fr_auto] items-baseline gap-x-6 gap-y-1.5 border-b border-cream-dim py-7"
             >
-              <p className="eyebrow col-span-2 text-red sm:col-span-1">{e.day}</p>
+              <p className="eyebrow col-span-2 text-red sm:col-span-1">
+                {e.day}
+                {e.name === tonightName && (
+                  <span className="ml-2 rounded-sm bg-red px-2 py-0.5 text-cream-light">
+                    Tonight
+                  </span>
+                )}
+              </p>
               <p className="col-start-2 row-start-1 hidden text-sm text-muted sm:block">
                 {e.time ?? "Time varies"}
               </p>
@@ -121,6 +137,14 @@ export default function EventsPage() {
             >
               Send a message
             </Link>
+            <a
+              href={SITE.toast.waitlist}
+              target="_blank"
+              rel="noopener"
+              className="px-2 py-4 font-sans text-sm text-body underline underline-offset-4 transition-colors hover:text-red"
+            >
+              Join the waitlist
+            </a>
           </div>
         </div>
       </div>
