@@ -256,9 +256,15 @@
 --------------------------------------------------------------------------- */
 .badge-stage {
   position: relative;
-  width: 100%;
-  max-width: 30rem;
-  margin-inline: auto;
+  /* No width here on purpose. This rule sits after the Tailwind import, so a
+     width declared here BEATS the w-* utility on the element, which is the
+     glaze.md failure-log trap: the badge was sized with w-56 and rendered
+     597px wide because this rule said 100%. The utility owns the width. */
+  /* The flight is clipped to the badge's own frame. Without this the coach
+     needs the whole page width to run across, which put it straight through
+     the headline; with it, the badge can sit beside the type and the coach
+     arrives into frame like a shot in a film. */
+  overflow: hidden;
 }
 .badge-plate {
   display: block;
@@ -323,10 +329,17 @@
 
 @keyframes coachArrive {
   from {
-    transform: translateX(-190%) translateY(1.5%);
+    /* Just outside the clip, so the coach is revealed by the frame edge
+       rather than appearing in the middle of blank paper. */
+    transform: translateX(-165%) translateY(1.5%);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
   }
   to {
     transform: none;
+    opacity: 1;
   }
 }
 @keyframes wheelTurn {
