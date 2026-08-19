@@ -159,6 +159,28 @@ leftovers: a blanket rename produced `text-cream-light-dim`, a class that does
 not exist, and 61 contrast failures followed from it. Search for classes that
 do not resolve before trusting a screenshot.
 
+**The money dial prices the channel twice, not once.** The first version showed
+only the fee share — true, and the wrong question. It never said what the online
+channel costs *today*, so it read as a new expense with a sweetener rather than
+a cheaper way to do a thing already being paid for. It now shows Toast's cost,
+ours, and the gap, driven by orders and average ticket.
+
+The Toast side is a **range with two matched ends**, not an arbitrary spread:
+the low end is the $0/month Starter Kit (3.39% + 15¢, ordering bundled, no
+module line) and the high end is the $69/month plan with Digital Storefront
+billed separately (3.50% + 15¢, +$75). Quoting each end as one coherent plan is
+what keeps it honest. Toast no longer publishes a fixed rate at all — it is
+quoted per restaurant — which is the argument for a range and the reason the
+proposal asks for their statement.
+
+Two things the copy refuses to bury, because a buyer finds them anyway:
+guests pay 99¢ they do not pay on Toast's page today, and **Stripe's 30¢ per
+transaction is worse than Toast's 15¢ below about a $30 ticket**. Processing is
+close to a wash; the gap is the module and the fee share. Verified by running
+the shipped functions out of the HTML rather than a retyped copy: across the
+dial's whole domain (50–600 orders, $15–$70 tickets) the worst corner still
+favors the bar by about 40¢ an order.
+
 **No embedded map.** A Google Maps iframe loads third-party script on every page
 view and does nothing a link to the visitor's own maps app does not do.
 
