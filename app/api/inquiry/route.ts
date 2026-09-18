@@ -115,6 +115,20 @@ export async function POST(request: Request) {
         { status: 502 }
       );
     }
+    // A 2xx is not an acceptance. Resend answers an accepted message with a
+    // body carrying an id, and that id is the only evidence the message was
+    // taken. A 2xx with any other body, which is what a changed API surface or
+    // a proxy in front of the call looks like, means nothing was queued, and
+    // InquiryForm would show "Thanks, we got it" over an enquiry that reached
+    // nobody. The docblock above promises the opposite, so refuse instead and
+    // let the form hand off to the visitor's mail app the way it already does.
+    const accepted = await res.json().catch(() => null);
+    if (typeof accepted?.id !== "string" || !accepted.id) {
+      return NextResponse.json(
+        { ok: false, reason: "provider_error", status: res.status },
+        { status: 502 }
+      );
+    }
   } catch {
     return NextResponse.json({ ok: false, reason: "network_error" }, { status: 502 });
   }
