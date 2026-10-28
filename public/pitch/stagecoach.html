@@ -61,6 +61,34 @@ nav{display:flex;gap:20px;font-size:.72rem;font-weight:600;letter-spacing:.09em;
 nav a{color:var(--mute);text-decoration:none}
 nav a:hover{color:var(--pink-d)}
 @media(max-width:720px){nav{display:none}.brand span{display:none}}
+/* The one pill the header carries is Launch (glaze/launch-page.md). It lives
+   outside <nav> so the 720px rule that hides the section anchors cannot take
+   it with them. */
+.hright{display:flex;align-items:center;gap:20px}
+.hdemo{display:inline-flex;align-items:center;min-height:44px;background:var(--pink-d);color:#fff;font-weight:700;font-size:.72rem;letter-spacing:.09em;
+ text-transform:uppercase;padding:10px 18px;border-radius:999px;text-decoration:none;white-space:nowrap;
+ box-shadow:0 6px 16px -6px rgba(232,77,138,.55);transition:all .18s}
+.hdemo:hover{background:var(--green);color:var(--ink);transform:translateY(-1px)}
+@media(max-width:400px){.hdemo{font-size:.66rem;padding:9px 13px;letter-spacing:.06em}}
+/* The hero pair: one look, one close. The ghost is Launch so the pill in the
+   header is not competing with a second pill here. */
+.herocta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:30px}
+.herocta a{display:inline-flex;align-items:center;min-height:46px;padding:0 26px;border-radius:999px;font-family:var(--sans);font-weight:700;font-size:.8rem;letter-spacing:.09em;text-transform:uppercase;text-decoration:none;background:var(--pink-d);color:#fff;box-shadow:0 6px 16px -6px rgba(232,77,138,.55);transition:all .18s}
+.herocta a:hover{background:var(--green);color:var(--ink);transform:translateY(-2px)}
+.herocta a.ghost{background:transparent;color:var(--ink);border:2px solid var(--line);box-shadow:none}
+.herocta a.ghost:hover{background:transparent;color:var(--ink);border-color:var(--green)}
+.herocta span{flex:1 1 20em;min-width:16em;font-size:.92rem;color:var(--body)}
+/* Price cards: the struck anchor is the only place the market figure lives. */
+.two .was{display:block;font-family:var(--sans);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin-bottom:8px}
+.two .was s{text-decoration-color:var(--pink);text-decoration-thickness:2px}
+.two.one{grid-template-columns:1fr;margin-top:0}
+.pricesrc{font-size:.84rem;color:var(--mute);margin:-4px 0 18px}
+/* The closing band: one pill. The agreement, the try-it list, the demo and
+   Kevin stay plain links underneath, because a second pill is a second close. */
+.demo a.big{padding:18px 44px;font-size:.92rem;margin-top:4px}
+.demo .after{color:#D8CBBA;font-size:.92rem;max-width:38em;margin:14px auto 0;line-height:1.6}
+.demo .after a{display:inline;background:none;box-shadow:none;padding:0;border-radius:0;font-family:inherit;font-size:inherit;letter-spacing:0;text-transform:none;color:#fff;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.demo .after a:hover{background:none;color:var(--green);transform:none}
 
 /* hero */
 .hero{padding:66px 0 54px;text-align:left}
@@ -141,7 +169,7 @@ footer b{color:#F6EFE4;display:block;font-family:var(--sans);font-size:.95rem;ma
 footer .bw{display:block;font-weight:800;color:#F6EFE4;letter-spacing:-.6px;margin-bottom:5px}
 footer .bw span{font-weight:350;color:#A6907F}
 footer a{color:var(--green)}
-.conf{font-size:.72rem;color:#7A6A58;margin-top:14px;letter-spacing:.04em}
+.conf{font-size:.72rem;color:#A6907F;margin-top:14px;letter-spacing:.04em}
 .note{font-size:.85rem;color:var(--mute);font-style:italic;line-height:1.5}
 
 /* --- the mark, and its drip, lifted from glazedweb.com --- */
@@ -222,12 +250,15 @@ footer .gmark{height:78px;width:auto}
     <svg class="gmark mark" viewBox="0 0 200 250" overflow="visible" aria-hidden="true"><defs><linearGradient id="dgGrad" x1="0" y1="92" x2="0" y2="165" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#5FA850"></stop><stop offset="100%" stop-color="#43813A"></stop></linearGradient><linearGradient id="lgGrad" x1="0" y1="92" x2="0" y2="215" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#D9EDA0"></stop><stop offset="55%" stop-color="#BFE07A"></stop><stop offset="100%" stop-color="#A3CE55"></stop></linearGradient><radialGradient id="pinkGrad" cx="40%" cy="34%" r="75%"><stop offset="0%" stop-color="#F887B2"></stop><stop offset="55%" stop-color="#E84D8A"></stop><stop offset="100%" stop-color="#CE3672"></stop></radialGradient><linearGradient id="creepGrad" x1="0" y1="90" x2="0" y2="124" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#E3F2B0"></stop><stop offset="100%" stop-color="#C3E181"></stop></linearGradient></defs><g class="goo"><g fill="url(#dgGrad)"><ellipse cx="100" cy="110" rx="38" ry="15"></ellipse><path class="wobB" d="M 86 100 C 86 116, 87 130, 88 142 C 88 148, 91 149, 92 142 C 93 130, 92 114, 92 100 Z"></path><path d="M 114 100 C 114 112, 115 124, 116 134 C 116 140, 119 141, 120 134 C 121 124, 120 110, 120 100 Z"></path></g><g fill="url(#lgGrad)"><path class="wob1" d="M 64 100 C 63 120, 65 138, 66 152 C 66 164, 68 172, 74 173 C 80 172, 83 165, 82 154 C 84 136, 85 116, 86 100 Z"></path><path class="wob2" d="M 92 100 C 91 128, 93 152, 94 172 C 94 188, 97 199, 104 200 C 111 199, 114 190, 112 174 C 113 150, 114 124, 114 100 Z"></path><path class="wob3" d="M 120 100 C 119 116, 120 130, 121 142 C 121 152, 123 159, 129 160 C 134 159, 137 153, 135 144 C 136 130, 137 114, 137 100 Z"></path></g></g><path class="string" d="M 104 199 L 104 209" stroke="#BFE07A" stroke-width="2.5" stroke-linecap="round" fill="none"></path><g class="droplet"><circle cx="104" cy="213" r="7" fill="#BFE07A"></circle><circle cx="102" cy="211" r="2" fill="#F1F8DC" opacity="0.9"></circle></g><circle class="droplet2" cx="74" cy="186" r="4.5" fill="#BFE07A"></circle><circle cx="100" cy="70" r="52" fill="url(#pinkGrad)"></circle><path d="M 56 98 A 52 52 0 0 0 144 98 C 142 94, 138 92, 134 94 C 130 97, 129 102, 125 104 C 119 106, 116 98, 110 96 C 104 94, 103 102, 98 105 C 93 107, 90 100, 84 97 C 78 95, 76 100, 71 102 C 66 103, 62 100, 56 98 Z" fill="url(#creepGrad)"></path><path d="M 68 106 A 42 42 0 0 0 84 116" fill="none" stroke="#F1F8DC" stroke-width="4" stroke-linecap="round" opacity="0.85"></path><path d="M 97 144 Q 103 151 109 144" fill="none" stroke="#55974A" stroke-width="4" stroke-linecap="round"></path><g stroke="#F1F8DC" fill="none" stroke-linecap="round"><path d="M 97 128 C 96 148, 97 166, 100 182" stroke-width="4.5" opacity="0.85"></path><path d="M 69 118 C 68 132, 70 146, 71 156" stroke-width="3.5" opacity="0.8"></path><path d="M 124 114 C 123 124, 125 138, 126 148" stroke-width="3.5" opacity="0.8"></path></g><circle cx="100" cy="192" r="2.5" fill="#F1F8DC" opacity="0.9"></circle><circle cx="100" cy="72" r="13" fill="#FDF6EC"></circle><circle cx="100" cy="72" r="13" fill="none" stroke="#C22F6B" stroke-width="3" opacity="0.3"></circle><path class="sheen" d="M 62 46 A 44 44 0 0 1 82 28" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"></path><circle class="sheen" cx="92" cy="26" r="3.5" fill="#FFFFFF"></circle></svg>
     <span>Glazed Web</span>
   </a>
+  <div class="hright">
   <nav>
     <a href="#found">What we found</a>
     <a href="#see">See it</a>
     <a href="#money">The money</a>
     <a href="#next">Next</a>
   </nav>
+  <a class="hdemo" href="https://www.glazedweb.com/build/stagecoach" target="_blank" rel="noopener">Launch &#8599;</a>
+  </div>
   </div>
 </header>
 
@@ -236,16 +267,21 @@ footer .gmark{height:78px;width:auto}
     <svg class="gmark gl" viewBox="0 0 200 250" overflow="visible" aria-hidden="true"><defs><linearGradient id="dgGrad" x1="0" y1="92" x2="0" y2="165" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#5FA850"></stop><stop offset="100%" stop-color="#43813A"></stop></linearGradient><linearGradient id="lgGrad" x1="0" y1="92" x2="0" y2="215" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#D9EDA0"></stop><stop offset="55%" stop-color="#BFE07A"></stop><stop offset="100%" stop-color="#A3CE55"></stop></linearGradient><radialGradient id="pinkGrad" cx="40%" cy="34%" r="75%"><stop offset="0%" stop-color="#F887B2"></stop><stop offset="55%" stop-color="#E84D8A"></stop><stop offset="100%" stop-color="#CE3672"></stop></radialGradient><linearGradient id="creepGrad" x1="0" y1="90" x2="0" y2="124" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#E3F2B0"></stop><stop offset="100%" stop-color="#C3E181"></stop></linearGradient></defs><g class="goo"><g fill="url(#dgGrad)"><ellipse cx="100" cy="110" rx="38" ry="15"></ellipse><path class="wobB" d="M 86 100 C 86 116, 87 130, 88 142 C 88 148, 91 149, 92 142 C 93 130, 92 114, 92 100 Z"></path><path d="M 114 100 C 114 112, 115 124, 116 134 C 116 140, 119 141, 120 134 C 121 124, 120 110, 120 100 Z"></path></g><g fill="url(#lgGrad)"><path class="wob1" d="M 64 100 C 63 120, 65 138, 66 152 C 66 164, 68 172, 74 173 C 80 172, 83 165, 82 154 C 84 136, 85 116, 86 100 Z"></path><path class="wob2" d="M 92 100 C 91 128, 93 152, 94 172 C 94 188, 97 199, 104 200 C 111 199, 114 190, 112 174 C 113 150, 114 124, 114 100 Z"></path><path class="wob3" d="M 120 100 C 119 116, 120 130, 121 142 C 121 152, 123 159, 129 160 C 134 159, 137 153, 135 144 C 136 130, 137 114, 137 100 Z"></path></g></g><path class="string" d="M 104 199 L 104 209" stroke="#BFE07A" stroke-width="2.5" stroke-linecap="round" fill="none"></path><g class="droplet"><circle cx="104" cy="213" r="7" fill="#BFE07A"></circle><circle cx="102" cy="211" r="2" fill="#F1F8DC" opacity="0.9"></circle></g><circle class="droplet2" cx="74" cy="186" r="4.5" fill="#BFE07A"></circle><circle cx="100" cy="70" r="52" fill="url(#pinkGrad)"></circle><path d="M 56 98 A 52 52 0 0 0 144 98 C 142 94, 138 92, 134 94 C 130 97, 129 102, 125 104 C 119 106, 116 98, 110 96 C 104 94, 103 102, 98 105 C 93 107, 90 100, 84 97 C 78 95, 76 100, 71 102 C 66 103, 62 100, 56 98 Z" fill="url(#creepGrad)"></path><path d="M 68 106 A 42 42 0 0 0 84 116" fill="none" stroke="#F1F8DC" stroke-width="4" stroke-linecap="round" opacity="0.85"></path><path d="M 97 144 Q 103 151 109 144" fill="none" stroke="#55974A" stroke-width="4" stroke-linecap="round"></path><g stroke="#F1F8DC" fill="none" stroke-linecap="round"><path d="M 97 128 C 96 148, 97 166, 100 182" stroke-width="4.5" opacity="0.85"></path><path d="M 69 118 C 68 132, 70 146, 71 156" stroke-width="3.5" opacity="0.8"></path><path d="M 124 114 C 123 124, 125 138, 126 148" stroke-width="3.5" opacity="0.8"></path></g><circle cx="100" cy="192" r="2.5" fill="#F1F8DC" opacity="0.9"></circle><circle cx="100" cy="72" r="13" fill="#FDF6EC"></circle><circle cx="100" cy="72" r="13" fill="none" stroke="#C22F6B" stroke-width="3" opacity="0.3"></circle><path class="sheen" d="M 62 46 A 44 44 0 0 1 82 28" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"></path><circle class="sheen" cx="92" cy="26" r="3.5" fill="#FFFFFF"></circle></svg>
     <div class="k">Website &amp; ordering proposal &middot; The Stagecoach Inn</div>
     <h1>You own the building.<br>You do not own<br><em>the website.</em></h1>
-    <p class="sub">You own the bar, the kitchen, the trivia night and a hundred
-    and eighty-eight years of being the stop people made on purpose. Online,
-    almost none of it is yours: your menu lives on Toast, your events page says
-    you have no events, and Toast publishes a second Stagecoach Inn site of its
-    own. We built the one we would put in its place, with your real menu in it.
-    It is live right now, and everything in this letter links to the proof.</p>
+    <p class="sub">You own the bar, the kitchen, the trivia night and a building that
+    has been a stop on Michigan Avenue since 1838. Online, almost none of it is
+    yours. Your menu lives on Toast, your events page says you have no events,
+    and Toast publishes a second Stagecoach Inn site of its own. We built the
+    one we would put in its place, with your real menu in it. It is live right
+    now, and every claim in this letter links to the proof.</p>
+    <p class="herocta">
+      <a data-demo="">Open the site &#8599;</a>
+      <a class="ghost" href="https://www.glazedweb.com/build/stagecoach" target="_blank" rel="noopener">Launch &#8599;</a>
+      <span>We built the site before writing this letter. Look at it first. If it is your restaurant, Launch is where it starts.</span>
+    </p>
     <div class="forwho">
       Prepared by <b>Kevin Hershock &middot; Glazed Web</b><br>
-      Marshall, Michigan &middot; August 2026<br>
-      <b>Every claim below links to the evidence.</b>
+      Marshall, Michigan &middot; October 2026<br>
+      <b>Every claim below links to the evidence. Checked again on October 28, 2026.</b>
     </div>
 
     <div class="tldr">
@@ -253,7 +289,7 @@ footer .gmark{height:78px;width:auto}
       <ul>
         <li><span class="n">01</span><div><b>Your menu is not on your website.</b> Every Menu link goes to Toast. Your own <span class="mono">/menu</span> page returns a 404.</div></li>
         <li><span class="n">02</span><div><b>Your events page says there are no events.</b> Meanwhile your homepage advertises trivia, DJ bingo and karaoke every single week.</div></li>
-        <li><span class="n">03</span><div><b>Your phone number is not on your homepage.</b> For a bar, that is the whole ballgame.</div></li>
+        <li><span class="n">03</span><div><b>Your phone number is not on your homepage.</b> It is on your contact page, one tap away. Toast's page about you has it above the fold.</div></li>
         <li><span class="n">04</span><div><b>Google cannot tell that you are a restaurant.</b> Your structured data has a name and a logo in it. No address, no phone, no hours, no menu.</div></li>
         <li><span class="n">05</span><div><b>There are two of you online.</b> Toast publishes a second Stagecoach Inn website, and it is the one with your phone number on it.</div></li>
       </ul>
@@ -266,7 +302,8 @@ footer .gmark{height:78px;width:auto}
  <div class="rule"></div>
  <h2>What we found.</h2>
  <p>Nothing here is an opinion about your design. Every line is a fact with a
- link, checked on August 18, 2026.</p>
+ link, first checked on August 18, 2026 and checked again on October 28, 2026.
+ Nothing on the list had changed.</p>
 
  <div class="claim">
   <h4>The menu, the thing people actually came for, is not on your site</h4>
@@ -307,7 +344,7 @@ footer .gmark{height:78px;width:auto}
   type, no address, no telephone, no opening hours, no price range and no menu
   link. Search engines can read your words. They cannot read your facts, and
   facts are what fill in the panel beside your name.</p>
-  <a class="verify plain">Verified in the page source, August 18 2026</a>
+  <a class="verify plain">Verified in the page source, October 28 2026</a>
  </div>
 
  <div class="claim">
@@ -331,7 +368,7 @@ footer .gmark{height:78px;width:auto}
 
  <div class="claim">
   <h4>Small things that add up</h4>
-  <p>The homepage loads <b>37 stylesheets and 18 scripts</b>. Your logo file is
+  <p>The homepage loads <b>37 stylesheets and 19 scripts</b>. Your logo file is
   <b>284KB</b> for a mark that displays at thumbnail size; the identical logo on
   the demo is <b>38KB</b>. Your homepage features Ahi Tuna, which is not on the
   ordering menu at all. None of these is fatal. All of them are the same story.</p>
@@ -343,9 +380,8 @@ footer .gmark{height:78px;width:auto}
   <p>Add it up. The site is a WordPress subscription with a page builder on top.
   The menu is on Toast. The ordering is on Toast. The waitlist is on Toast. The
   loyalty program is on Toast. There is a second website about you on Toast. If
-  every one of those relationships ended tomorrow, what would you still have?
-  The building, and a homepage. That is the finding. Everything above is a
-  symptom of it.</p>
+  every one of those relationships ended tomorrow, you would have the building
+  and a homepage. Everything above follows from that.</p>
  </div>
 </div></section>
 
@@ -378,8 +414,8 @@ footer .gmark{height:78px;width:auto}
   <p>Guests pick from your menu, choose sides and temps and sauces exactly as
   they do on Toast, and pay online. The order prints in the kitchen. There is a
   staff board for tonight's 86 list, a busy dial when the kitchen is slammed,
-  and refunds. It costs the bar nothing a month, and we will come back to how
-  that works.</p>
+  and refunds. It is an add-on, priced in section three, and it stays switched
+  off until you take it.</p>
  </div>
 
  <div class="claim">
@@ -402,8 +438,8 @@ footer .gmark{height:78px;width:auto}
    <a data-demo="/events">This week</a>
    <a data-demo="/kitchen">The kitchen board</a>
   </div>
-  <p class="pin">The board asks for a PIN: <span class="mono">0201</span>. That is
-  the demo one, and it becomes yours before anybody real uses it.</p>
+  <p class="pin">The board asks for a PIN. In the demo it is your street number,
+  and it becomes yours before anybody real uses it.</p>
  </div>
 </div></section>
 
@@ -413,83 +449,34 @@ footer .gmark{height:78px;width:auto}
  <h2>What it costs.</h2>
 
  <div class="two">
-  <div><div class="n">$1,900</div><div class="l">One-time build. Everything above, finished and launched on stagecoach1838.com. Half to start, half on launch.</div></div>
-  <div><div class="n">$99<span style="font-size:1rem;color:var(--mute)">/mo</span></div><div class="l">Hosting, SSL, security, backups, and content edits. New menu item? Band on Saturday? Send a text.</div></div>
+  <div><span class="was" aria-hidden="true">Market rate for a bar site, per Untappd&rsquo;s guide: <s>$5,000</s></span><div class="n">$3,000</div><div class="l">One-time build. Everything in section two, finished and launched on stagecoach1838.com. Half to start, half on launch.</div></div>
+  <div><span class="was" aria-hidden="true">Same guide, ongoing: $50 to $200 a month</span><div class="n">$150<span style="font-size:1rem;color:var(--mute)">/mo</span></div><div class="l">Hosting, SSL, security, backups, and edits whenever you would rather text us than do it yourself. New menu item? Band on Saturday? Send a text.</div></div>
  </div>
+ <div class="two one">
+  <div><span class="was" aria-hidden="true">Add-on, if you want it</span><div class="n">$500 <span style="font-size:1rem;color:var(--mute)">once</span> <span style="font-size:1rem;color:var(--mute)">&nbsp;+&nbsp; 99&cent; an order</span></div><div class="l">Online ordering on your own site: the order page, the kitchen board, the 86 list and the busy dial, switched on and tested with you. The 99&cent; is added at checkout and paid by the guest. No commission.</div></div>
+ </div>
+ <p class="pricesrc">The anchor is not ours. Untappd&rsquo;s guide for restaurants, bars and breweries puts a mid-range website at <strong>$1,000 to $5,000 upfront and $50 to $200 a month</strong>. Everything in section two is that column. <a href="https://lounge.untappd.com/how-much-should-a-website-cost/" target="_blank" rel="noopener">Read the guide &#8599;</a></p>
+ <p>That is <strong>$4,800</strong> across the first twelve months, then <strong>$1,800 a year</strong>. Add online ordering and the first year is $5,300. Extra work beyond this scope is quoted and approved before it starts, so nothing lands on your bill by surprise.</p>
 
  <p><strong>You own all of it once the build is paid.</strong> The code, the
  content, the accounts, the domain in your name. Month to month after launch,
  thirty days' notice, nothing to buy back. If you ever leave, you leave with the
  whole thing, which is the opposite of the arrangement you have now.</p>
 
- <h3>And the ordering, separately</h3>
- <p>The ordering piece is its own decision and its own money, and it carries
- <strong>no software fee at all</strong> &mdash; nothing monthly, nothing to
- cancel. A <strong>99&cent; order fee</strong> is
- paid by the guest at checkout, the way guest fees already work everywhere
- online: Menufy charges $1.75, Owner.com takes 5 percent of the ticket, and
- Toast itself ran this exact 99 cents in 2023 and kept every penny. Ours is the
- one where <strong>half stays in your till</strong>.</p>
+ <h3>What the monthly replaces</h3>
+ <p>The Flywheel hosting and the Elementor license the current site runs on.
+ We do not know what you pay for them; your invoice does. What the monthly buys
+ is the part of your business that lives on the internet, written by you, on an
+ address you hold, kept current by a person in Marshall who answers.</p>
 
- <p>That half is the smaller half of the story. The bigger one is that the
- online channel already costs you money every month, and you are probably not
- looking at it as a line item. So here it is as one, both ways.</p>
-
- <div class="clock">
-   <div class="clockhead"><span class="k">The online channel, priced both ways</span><span class="ct" id="dialN">200 orders &middot; $32 ticket</span></div>
-   <div class="clockgrid">
-     <div class="cc">
-       <div class="cl bad">On Toast, per month</div>
-       <div class="cb" id="toastMo">$247 to $329</div>
-       <div class="cs">Card processing on online orders at 3.39&ndash;3.50% + 15&cent;, plus the Digital Storefront module where it is billed as an add-on.</div>
-     </div>
-     <div class="cc">
-       <div class="cl good">On ours, per month</div>
-       <div class="cb" id="oursMo">$151</div>
-       <div class="cs">Stripe&rsquo;s published 2.9% + 30&cent;, less the fifty cents of every order fee that stays in your till. No software line, ever.</div>
-     </div>
-   </div>
-   <div class="cc" style="border-top:1px solid rgba(255,255,255,.1)">
-     <div class="cl good">The difference</div>
-     <div class="cb" id="saveMo">$96 to $178 a month &middot; $1,147 to $2,132 a year</div>
-     <div class="cs" id="saveParts">The low end assumes you are on the $0/month Starter Kit, where ordering is bundled into a higher card rate. The high end assumes the $69 plan with the module billed separately. Your statement collapses the range to one number.</div>
-   </div>
-   <div class="cc" style="border-top:1px solid rgba(255,255,255,.1)">
-     <div class="split"><span class="cl good">Online orders a month</span>
-     <input type="range" id="volSlider" min="50" max="600" step="10" value="200" aria-label="Online orders per month">
-     <span class="cv" id="volV">200</span>
-     </div>
-     <div class="split"><span class="cl good">Average ticket</span>
-     <input type="range" id="tikSlider" min="15" max="70" step="1" value="32" aria-label="Average online ticket in dollars">
-     <span class="cv" id="tikV">$32</span>
-     </div>
-     <div class="cs">$32 is not a guess. It is two off your own menu: the 23 burgers, handhelds and mains you sell today average $15.83.</div>
-   </div>
- </div>
-
- <p style="margin-top:16px"><strong>Two things this dial does not hide.</strong>
- The first is that your guest pays 99 cents they do not pay on Toast&rsquo;s page
- today. It is shown on the menu, before checkout, never sprung at payment. The
- second is that our card rate is only better on tickets above about thirty
- dollars &mdash; Stripe&rsquo;s 30&cent; per transaction is worse than Toast&rsquo;s
- 15&cent; on a small order, and their percentage is worse than ours on a big one.
- Processing is close to a wash. The gap in the number above is the software line
- you stop paying and the fifty cents you start keeping.</p>
-
- <p class="note">Where the Toast figures come from: Toast no longer publishes a
- fixed processing rate &mdash; it is quoted per restaurant &mdash; which is
- exactly why this is a range and not a number. The 3.39% figure is the
- $0/month Starter Kit rate, the 3.50% is the online rate on the $69/month plan,
- and $75 a month is what the Digital Storefront add-on is consistently reported
- to run. All three are worth checking, and one page of your statement beats all
- of it. Slide the dial anywhere you like: there is no ticket size and no Toast
- rate on it at which this arrangement costs the bar more than today. The worst
- corner of the whole range is still about forty cents an order in your favor.</p>
-
- <p class="note" style="margin-top:14px">Said plainly, because it decides
- whether this is worth your time: we do not touch your register. The bar keeps
- running on Toast in the room. This replaces the online ordering channel only,
- and the printer in the kitchen prints the same way it prints today.</p>
+ <h3>The ordering, separately</h3>
+ <p>Online ordering is its own decision and its own money: $500 once, due when
+ you ask for it to be switched on, whether that is launch day or next year. A
+ flat 99&cent; order fee is added at checkout, paid by the guest and named before
+ they pay. There is no percentage of anything.</p>
+ <p class="note">We do not touch your register. The bar keeps running on Toast
+ in the room. This replaces the online ordering link only, and the printer in
+ the kitchen prints the same way it prints today.</p>
 </div></section>
 
 <section id="next"><div class="wrap">
@@ -498,19 +485,38 @@ footer .gmark{height:78px;width:auto}
  <h2>What happens next.</h2>
  <div class="step">
   <div class="no">1</div>
-  <div><h4>Look at the demo, on your phone, in the bar</h4><p>It is built from your own menu and your own photos, so the question is not whether you like the idea. It is whether that is your restaurant. Fifteen minutes with it will tell you.</p></div>
+  <div><h4>Launch</h4><p>Everything from here lives on one page, yours: <a href="https://www.glazedweb.com/build/stagecoach" target="_blank" rel="noopener">glazedweb.com/build/stagecoach</a>. Where things stand, the handful of things only you can supply with the reason for each, what happens in what order, and where your stuff is. We keep it current as things land, so nobody has to text anybody to ask where a thing got to.</p></div>
  </div>
  <div class="step">
   <div class="no">2</div>
-  <div><h4>Tell us the four things only you know</h4><p>Which inbox a real person reads. Whether Saturday music has a start time. Who owns the domain login. And anything on the current site that is already wrong. Ten minutes by text.</p></div>
+  <div><h4>Look at the demo, on your phone, in the bar</h4><p>It is built from your own menu and your own photos, so the question is whether that is your restaurant. Fifteen minutes with it will tell you. It cost you nothing and it obligates you to nothing.</p></div>
  </div>
  <div class="step">
   <div class="no">3</div>
-  <div><h4>Say go, and it is live in two weeks</h4><p>We point stagecoach1838.com at the new site, keep every existing link working, and hand you the accounts. The ordering piece can come the same week or six months later, or never.</p></div>
+  <div><h4>Half an hour, at the bar</h4><p>We are in Marshall. <a href="https://glazedweb.com/schedule" target="_blank" rel="noopener">Pick a time at glazedweb.com/schedule</a> or tell us when the lunch rush is over. Two questions we would ask: which inbox a person reads, and whether Saturday music has a start time.</p></div>
  </div>
- <p class="note" style="margin-top:20px">Kevin Hershock &middot; Glazed Web &middot;
- Marshall, Michigan &middot; <a href="mailto:kevin@glazedweb.com">kevin@glazedweb.com</a> &middot;
- or put half an hour in both calendars: <a href="https://glazedweb.com/schedule" target="_blank" rel="noopener">glazedweb.com/schedule</a></p>
+ <div class="step">
+  <div class="no">4</div>
+  <div><h4>Live</h4><p>Two weeks from yes, most of it waiting on the list on your build page. We point stagecoach1838.com at the new site, keep every existing link working, and hand you the accounts. The ordering piece can come the same week, six months later, or never.</p></div>
+ </div>
+
+ <h3>What we would need from you</h3>
+ <p>Which inbox a real person reads, whether Saturday music has a start time,
+ who holds the domain login and whether there is email on the domain today, a
+ read-through of the menu prices, and anything on the current site that is
+ already wrong. That is the list, and it lives on your build page with the
+ reason each item is needed, ticked off as things arrive.</p>
+
+ <div class="demo">
+  <div class="k">The one thing to do</div>
+  <h3>Everything from here is on one page.</h3>
+  <p>Where things stand, what we need from you, what happens in what order, and where your stuff is.</p>
+  <a class="big" href="https://www.glazedweb.com/build/stagecoach" target="_blank" rel="noopener">Launch &#8599;</a>
+  <p class="after"><a href="https://www.glazedweb.com/agreement/stagecoach" target="_blank" rel="noopener">Ready to say yes? The agreement is digital and short enough to read</a>: the same plain-English terms every client gets, with your scope, your numbers and the ordering terms in an Exhibit A of your own.</p>
+  <p class="after"><a href="https://www.glazedweb.com/build/stagecoach#try" target="_blank" rel="noopener">Want to test it first?</a> Four things you can do on the demo right now, from placing an order to changing a price, each leaving a trace you can go and find.</p>
+  <p class="after">Not yet? <a data-demo="">Open the demo</a> one more time, or <a href="https://glazedweb.com/schedule" target="_blank" rel="noopener">pick a half hour</a> and we will walk it with you at the bar.</p>
+  <p class="after">Or <a href="mailto:kevin@glazedweb.com?subject=Stagecoach%20Inn%20website%20proposal">email Kevin</a>. Glazed Web is one person in Marshall, Michigan. You would be working with him start to finish.</p>
+ </div>
 </div></section>
 
 <footer><div class="wrap">
@@ -518,6 +524,7 @@ footer .gmark{height:78px;width:auto}
   <div>
     <p><b>Glazed Web</b> &middot; Marshall, Michigan</p>
     <p>Hand-built websites for businesses that already do the hard part.</p>
+    <p class="conf">Prepared for The Stagecoach Inn &middot; October 2026 &middot; Valid 60 days</p>
   </div>
 </div></footer>
 
@@ -538,63 +545,6 @@ footer .gmark{height:78px;width:auto}
   }
 })();
 
-/* The dial prices the SAME channel two ways and shows the gap, because an
-   owner weighs a difference, not an ingredient. The earlier version showed
-   only the fee share, which was true and answered the wrong question: it never
-   said what the channel costs today, so it read as a new expense with a
-   sweetener rather than a cheaper way to do a thing already being paid for.
-
-   Per one order of ticket T, to the bar:
-
-     Toast   = T * rate + 0.15                 rate in [0.0339, 0.0350]
-               plus the module, monthly, at the top end only
-     Ours    = stripe(T + 0.99) + 0.49 - 0.99
-               where stripe(x) = 0.029 * x + 0.30
-
-   Note the 0.99 sits INSIDE the Stripe base: the guest is charged the ticket
-   plus the fee as one amount, so the percentage applies to the whole thing.
-   Netting it out, the bar keeps about 47 cents of the 50, not a clean half.
-   The dial uses the real figure; the prose says "fifty cents" about the split
-   itself, which is what the split is.
-
-   The two ends of the range are a matched pair, not an arbitrary spread:
-     LOW  = the $0/month Starter Kit. Ordering bundled, so no module line, but
-            the card rate is higher across the board.
-     HIGH = the $69/month plan with Digital Storefront billed as an add-on.
-   Quoting them as one coherent plan each is what keeps the range honest. */
-var TOAST_LOW  = { rate: 0.0339, module: 0 };
-var TOAST_HIGH = { rate: 0.0350, module: 75 };
-
-function toastPerOrder(t, rate) { return rate * t + 0.15; }
-function oursPerOrder(t) { return (0.029 * (t + 0.99) + 0.30) + 0.49 - 0.99; }
-
-function usd(n) { return "$" + Math.round(n).toLocaleString(); }
-
-var vol = document.getElementById("volSlider");
-var tik = document.getElementById("tikSlider");
-
-function paint() {
-  var n = parseInt(vol.value, 10);
-  var t = parseInt(tik.value, 10);
-
-  var tLow  = n * toastPerOrder(t, TOAST_LOW.rate)  + TOAST_LOW.module;
-  var tHigh = n * toastPerOrder(t, TOAST_HIGH.rate) + TOAST_HIGH.module;
-  var ours  = n * oursPerOrder(t);
-  var sLow  = tLow - ours;
-  var sHigh = tHigh - ours;
-
-  document.getElementById("volV").textContent = n.toLocaleString();
-  document.getElementById("tikV").textContent = "$" + t;
-  document.getElementById("dialN").textContent = n.toLocaleString() + " orders · $" + t + " ticket";
-  document.getElementById("toastMo").textContent = usd(tLow) + " to " + usd(tHigh);
-  document.getElementById("oursMo").textContent = usd(ours);
-  document.getElementById("saveMo").textContent =
-    usd(sLow) + " to " + usd(sHigh) + " a month · " +
-    usd(sLow * 12) + " to " + usd(sHigh * 12) + " a year";
-}
-vol.addEventListener("input", paint);
-tik.addEventListener("input", paint);
-paint();
 </script>
 
 </body>
