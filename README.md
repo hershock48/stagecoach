@@ -164,27 +164,16 @@ leftovers: a blanket rename produced `text-cream-light-dim`, a class that does
 not exist, and 61 contrast failures followed from it. Search for classes that
 do not resolve before trusting a screenshot.
 
-**The money dial prices the channel twice, not once.** The first version showed
-only the fee share — true, and the wrong question. It never said what the online
-channel costs *today*, so it read as a new expense with a sweetener rather than
-a cheaper way to do a thing already being paid for. It now shows Toast's cost,
-ours, and the gap, driven by orders and average ticket.
-
-The Toast side is a **range with two matched ends**, not an arbitrary spread:
-the low end is the $0/month Starter Kit (3.39% + 15¢, ordering bundled, no
-module line) and the high end is the $69/month plan with Digital Storefront
-billed separately (3.50% + 15¢, +$75). Quoting each end as one coherent plan is
-what keeps it honest. Toast no longer publishes a fixed rate at all — it is
-quoted per restaurant — which is the argument for a range and the reason the
-proposal asks for their statement.
-
-Two things the copy refuses to bury, because a buyer finds them anyway:
-guests pay 99¢ they do not pay on Toast's page today, and **Stripe's 30¢ per
-transaction is worse than Toast's 15¢ below about a $30 ticket**. Processing is
-close to a wash; the gap is the module and the fee share. Verified by running
-the shipped functions out of the HTML rather than a retyped copy: across the
-dial's whole domain (50–600 orders, $15–$70 tickets) the worst corner still
-favors the bar by about 40¢ an order.
+**The money dial is gone (2026-10-28).** The August letter carried a slider
+pricing the online channel on Toast against ours. It assumed the bar kept half
+of the 99¢ order fee, which is not the terms (the fee is the studio's revenue,
+Part 3 of the agreement), and it argued cheaper, which the studio does not do
+(glaze/standards.md, the counter thesis). The fee is now one sentence in the
+price section and the dial's script went with it. The Toast rate research it
+rested on (Starter Kit 3.39% + 15¢ with ordering bundled; the $69 plan at
+3.50% + 15¢ with Digital Storefront about $75 a month; Toast quotes per
+restaurant and publishes no fixed rate) is in this repo's history at e71dd29
+if a future letter needs it. "We do not touch your register" stays.
 
 **No embedded map.** A Google Maps iframe loads third-party script on every page
 view and does nothing a link to the visitor's own maps app does not do.
@@ -201,8 +190,22 @@ Lives at `public/pitch/stagecoach.html`, served at the root of
 the demo at `/demo` on that host. Both the pitch host and `/pitch/*` send
 `X-Robots-Tag: noindex, nofollow`.
 
+Since 2026-10-28 it follows `glaze/launch-page.md` in the glazedweb repo: one
+action, **Launch**, in four places (header pill, hero ghost button, step 1 of
+"What happens next", the closing band), all pointing at
+`glazedweb.com/build/stagecoach`. The agreement is a plain link under the
+closing button, `glazedweb.com/agreement/stagecoach`. Both pages read the
+`stagecoach` row in `lib/customOrders.js` over there; the price in this letter
+($3,000 build, $150 a month, ordering a $500 add-on with the 99¢ guest fee)
+must match that row, and Kevin edits the row.
+
 The demo links inside it resolve their hrefs at load, because the site is at
 `/demo` **only** on the pitch host and at the root everywhere else. Hardcoding
 either would produce a dead link on the other domain.
+
+The build page's try-it list assumes `DATABASE_URL` and
+`ORDERING_DEMO_ALWAYS_OPEN=1` are set on the Vercel project. They were not on
+2026-10-28; without them an order placed on the demo can land in a different
+lambda from the kitchen board that looks for it. Set them before sending.
 
 **Delete the pitch file and the rewrites once they sign or pass.**
